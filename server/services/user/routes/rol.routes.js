@@ -1,6 +1,8 @@
 import { Router } from "express"
 import { authRequired } from "../../../gateway/middlewares/validate.middleware.js"
-import { getRoles, getRol, createRol, updateRol, toggleRolStatus } from "../controllers/rol.controllers.js"
+import { validateSchema } from "../../../gateway/middlewares/schema.middleware.js"
+import { rolSchema } from "../validators/rol.schema.js"
+import { getRoles, getRol, createRol, updateRol } from "../controllers/rol.controllers.js"
 
 const router = Router()
 
@@ -15,6 +17,7 @@ router.get(
 router.post(
   '/roles',
   authRequired,
+  validateSchema(rolSchema),
   createRol
 )
 
@@ -23,12 +26,5 @@ router.put(
   authRequired,
   updateRol
 )
-
-router.put(
-  '/roles/:rol',
-  authRequired,
-  toggleRolStatus
-)
-
 
 export default router

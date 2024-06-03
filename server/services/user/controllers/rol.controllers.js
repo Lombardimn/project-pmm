@@ -56,6 +56,29 @@ export const getRoles = async (req, res) => {
   }
 }
 
-export const updateRol = async (req, res) => {}
+export const updateRol = async (req, res) => {
+  const { rol, description, active} = req.body
 
-export const toggleRolStatus = async (req, res) => {}
+  try {
+    const [result] = await pool.query(
+      'UPDATE User SET ? WHERE rol = ?',
+      [
+        {
+          rol,
+          description,
+          active,
+          updated_at: new Date()
+        },
+        req.params.rol
+      ]
+    )
+
+    res.json(result)
+
+  } catch (error) {
+    return res.status(500)
+      .json({ 
+        message: error.message 
+      })
+  }
+}
