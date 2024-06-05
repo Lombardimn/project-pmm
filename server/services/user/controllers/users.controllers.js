@@ -42,19 +42,20 @@ export const getUser = async (req, res) => {
 }
 
 export const createUser = async (req, res) => {
-  const { username, email, password } = req.body
+  const { username, email, password, rol } = req.body
 
   try {
     const passwordHash = await bcrypt.hash(password, 10)
     const id = uuidv4()
 
     await pool.query(
-      'INSERT INTO Users (id, username, email, password) VALUES (?,?,?,?)',
+      'INSERT INTO Users (id, username, email, password, rol) VALUES (?,?,?,?,?)',
       [
         id,
         username,
         email,
-        passwordHash
+        passwordHash,
+        rol
       ]
     )
 

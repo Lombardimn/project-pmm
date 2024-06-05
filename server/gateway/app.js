@@ -6,6 +6,7 @@ import indexRoutes from "./routes/index.routes.js"
 import authRoutes from "../services/user/routes/auth.routes.js"
 import userRoutes from "../services/user/routes/users.routes.js"
 import rolRoutes from "../services/user/routes/rol.routes.js"
+import clientRoutes from "../services/client/routes/client.routes.js"
 
 const app = express()
 
@@ -18,5 +19,6 @@ app.use('/api/v1', indexRoutes)
 app.use('/api/v1', authRoutes)
 app.use('/api/v1', userRoutes)
 app.use('/api/v1', rolRoutes)
+app.use('/api/v1', clientRoutes)
 
 export default app

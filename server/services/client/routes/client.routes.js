@@ -2,7 +2,7 @@ import { Router } from "express"
 import { authRequired } from "../../../gateway/middlewares/validate.middleware.js"
 import { validateSchema } from "../../../gateway/middlewares/schema.middleware.js"
 import { clientSchema } from "../validators/client.schema.js"
-import { getClients, getClient, createClient, updateClient, deleteClient } from "../controllers/client.controllers"
+import { getClients, getClient, createClient, updateClient, deleteClient } from "../controllers/client.controllers.js"
 
 const router = Router()
 
@@ -13,15 +13,15 @@ router.get(
 )
 
 router.get(
-  '/clients/:id',
+  '/client',
   authRequired,
   getClient
 )
 
 router.post(
   '/clients',
-  authRequired,
   validateSchema(clientSchema),
+  authRequired,
   createClient
 )
 

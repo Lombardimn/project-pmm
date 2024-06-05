@@ -6,11 +6,11 @@ USE users_service;
 
 CREATE TABLE Roles (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    rol VARCHAR(20) NOT NULL UNIQUE,
-    description VARCHAR(50) NOT NULL,
-    active BOOLEAN NOT NULL DEFAULT 1,
-    created_at TIMESTAMP NOT NULL DEFAULT(NOW()),
-    updated_at TIMESTAMP NOT NULL DEFAULT(NOW())
+	rol VARCHAR(20) NOT NULL UNIQUE,
+	description VARCHAR(50) NOT NULL,
+	active BOOLEAN NOT NULL DEFAULT 1,
+	created_at TIMESTAMP NOT NULL DEFAULT(NOW()),
+	updated_at TIMESTAMP NOT NULL DEFAULT(NOW())
 );
 
 CREATE TABLE Users (
@@ -74,10 +74,10 @@ CREATE TABLE Clients (
 	area_phone INT NOT NULL,
 	number_phone INT NOT NULL,
 	status INT NOT NULL DEFAULT 1,
-	user_id CHAR(36) NOT NULL,
+	user_id_created CHAR(36) NOT NULL,
 	created_at TIMESTAMP NOT NULL DEFAULT(NOW()),
 	updated_at TIMESTAMP NOT NULL DEFAULT(NOW()),
-    FOREIGN KEY Clients(user_id) REFERENCES users_service.Users(id)
+  FOREIGN KEY Clients(user_id) REFERENCES users_service.Users(id)
 );
 
 /* TABLE INTERMEDIATE */
