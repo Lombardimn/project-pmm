@@ -108,6 +108,7 @@ INSERT INTO Clients (name, lastname, area_phone, number_phone, status, user_id, 
 /* Insertar registros en la tabla Int_clients_directions */
 INSERT INTO Int_clients_directions (client_id, direction_id) VALUES
 ((SELECT id FROM Clients WHERE name = 'John' AND lastname = 'Doe'), (SELECT id FROM Directions WHERE street = 'Main St')),
+((SELECT id FROM Clients WHERE name = 'John' AND lastname = 'Doe'), (SELECT id FROM Directions WHERE street = 'Second St')),
 ((SELECT id FROM Clients WHERE name = 'Jane' AND lastname = 'Doe'), (SELECT id FROM Directions WHERE street = 'Second St')),
 ((SELECT id FROM Clients WHERE name = 'Jim' AND lastname = 'Beam'), (SELECT id FROM Directions WHERE street = 'Third St')),
 ((SELECT id FROM Clients WHERE name = 'Jack' AND lastname = 'Daniels'), (SELECT id FROM Directions WHERE street = 'Fourth St'));

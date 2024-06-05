@@ -2,13 +2,13 @@ export const getClients = async (req, res) => {
   try {
     const [result] = await pool.query(
       `
-        SELECT *
+        SELECT Clients.*, Directions.*
         FROM Clients
-        JOIN Client_relation
-        ON Clients.id = Client_relation.id
-        JOIN Directions
-        ON Client_relation.Direction_id = Directions.id
-        ORDER BY Client.id ASC
+        INNER JOIN Int_clients_directions
+            ON Int_clients_directions.client_id = Clients.id
+        INNER JOIN Directions
+            ON Directions.id = Int_clients_directions.direction_id
+        WHERE Clients.name = 'John' AND Clients.lastname = 'Doe';
       `
     )
 
@@ -23,10 +23,25 @@ export const getClients = async (req, res) => {
 }
 
 export const getClient = async (req, res) => {
+  const { last_name } = req.body
+  req.params.client = req.body.name
+  
   try {
     const [result] = await pool.query(
-      'SELECT * FROM Clients WHERE id = ?',
-      [req.params.client]
+
+      `
+        SELECT Clients.name, Clients.lastname, Clients.area_phone, Clients.status, Directions.street, Directions.number_street, Directions.postal_code, Directions.floor, Directions.departament, Directions.lote, Directions.block, Directions.neighborhood, Directions.city, Directions.locality, Directions.state
+        FROM Clients
+        INNER JOIN Int_clients_directions
+            ON Int_clients_directions.client_id = Clients.id
+        INNER JOIN Directions
+            ON Directions.id = Int_clients_directions.direction_id
+        WHERE Clients.name = ? AND Clients.lastname = ?
+      `,
+      [
+        req.params.client,
+        last_name
+      ]
     )
 
     res.json(result)
