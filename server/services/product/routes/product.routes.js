@@ -1,15 +1,15 @@
 import { Router } from "express"
-import { getProducts, getProduct, createProduct, updateProduct, deleteProduct } from "../controllers/product.controllers"
+import { getProducts, getProduct, createProduct, updateProduct, deleteProduct } from "../controllers/product.controllers.js"
 
 const router = Router()
 
- router.get(
+router.get(
   '/products',
   getProducts
 )
 
 router.get(
-  '/product',
+  '/products/:id',
   getProduct
 )
 
