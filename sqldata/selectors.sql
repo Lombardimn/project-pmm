@@ -13,6 +13,7 @@ SELECT * FROM Brands;
 SELECT * FROM Categories;
 SELECT * FROM Products;
 SELECT * FROM Int_products_menus;
+SELECT * FROM Menus;
 
 
 /*******************************************/
@@ -45,4 +46,19 @@ SELECT * FROM Int_products_menus;
 -- ON Directions.id = Int_clients_directions.direction_id
 -- ORDER BY id ASC;
 
+-- SELECT Menus.*, Products.* 
+-- FROM Menus 
+-- INNER JOIN Int_products_menus
+--   ON Int_products_menus.menu_id = Menus.id
+-- INNER JOIN Products
+--   ON Products.id = Int_products_menus.product_id
+-- WHERE Menus.id = 2;
 
+SELECT Menus.*, 
+       Products.*, 
+       Categories.name AS category_name
+FROM Menus
+INNER JOIN Int_products_menus ON Int_products_menus.menu_id = Menus.id
+INNER JOIN Products ON Products.id = Int_products_menus.product_id
+INNER JOIN Categories ON Products.category_id = Categories.id
+WHERE Menus.id = 2;

@@ -3,7 +3,11 @@ import { pool } from '../models/client.model.js'
 export const getClients = async (req, res) => {
   try {
     const [result] = await pool.query(
-      `SELECT * FROM Clients ORDER BY Clients.id ASC;`
+      `
+        SELECT * 
+        FROM Clients 
+        ORDER BY Clients.id ASC
+      `
     )
 
     res.json(result)
@@ -58,7 +62,17 @@ export const createClient = async (req, res) => {
 
   try {
     const [result] = await pool.query(
-      `INSERT INTO Clients (name, lastname, area_phone, number_phone, user_id, created_at, updated_at) VALUES (?,?,?,?,?,?,?)`,
+      `
+        INSERT INTO Clients (
+          name,
+          lastname,
+          area_phone,
+          number_phone,
+          user_id,
+          created_at,
+          updated_at
+        ) VALUES (?,?,?,?,?,?,?)
+      `,
       [
         name,
         lastname,
@@ -90,7 +104,11 @@ export const updateClient = async (req, res) => {
 
   try {
     const [result] = await pool.query(
-      `UPDATE Clients SET ? WHERE id = ?`,
+      `
+        UPDATE Clients 
+        SET ? 
+        WHERE id = ?
+      `,
       [
         {
           name,
@@ -117,7 +135,10 @@ export const updateClient = async (req, res) => {
 export const deleteClient = async (req, res) => {
   try {
     const [result] = await pool.query(
-      `DELETE FROM Clients WHERE id = ?`,
+      `
+        DELETE FROM Clients 
+        WHERE id = ?
+      `,
       [req.params.id]
     ) 
 

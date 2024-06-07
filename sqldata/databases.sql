@@ -130,6 +130,10 @@ CREATE TABLE Menus (
 	name VARCHAR(50) NOT NULL UNIQUE,
 	description VARCHAR(255) NOT NULL,
 	status INT NOT NULL DEFAULT 1,
+    image VARCHAR(255) NOT NULL,
+    category_id INT NOT NULL,
+    type_id INT NOT NULL,
+    price DECIMAL(10,2) NOT NULL DEFAULT 0,
 	created_at TIMESTAMP NOT NULL DEFAULT(NOW()),
 	updated_at TIMESTAMP NOT NULL DEFAULT(NOW())
 );
