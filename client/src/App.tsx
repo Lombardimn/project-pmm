@@ -1,9 +1,19 @@
-function App() {
+import { Suspense } from "react"
+import { BrowserRouter, Route } from "react-router-dom"
+import { LoginPage } from "@/pages"
+import { RoutesWithNotFound } from "@/utilities"
 
+function App() {
+  
   return (
-    <>
-      <h1>Project PMM</h1>
-    </>
+    <Suspense fallback={<div>Cargando...</div>}>
+      <BrowserRouter>
+        <RoutesWithNotFound>
+          <Route path="/" element={<h1>HOME</h1>} />
+          <Route path="/login" element={<LoginPage />} />
+        </RoutesWithNotFound>
+      </BrowserRouter>
+    </Suspense>
   )
 }
 
