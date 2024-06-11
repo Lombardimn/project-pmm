@@ -1,9 +1,10 @@
-import { ButtonToAction, CallToAction, Copyright } from "@/components"
+import { ButtonToAction, CallToAction, Copyright, MdiEye, MdiEyeOff } from "@/components"
 import { useState } from "react";
 
 export const LoginPage = () => {
   const [valueUsername, setValueUsername] = useState('')
   const [valuePassword, setValuePassword] = useState('')
+  const [showPwd, setShowPwd] = useState(true)
 
   return (
     <>
@@ -61,8 +62,8 @@ export const LoginPage = () => {
                 }
               >Contraseña</label>
               <input 
-                type="text" 
-                name="password" 
+                type={ showPwd ? 'password' : 'text' }  
+                name="password"
                 id="password"
                 placeholder="Contraseña"
                 autoComplete="current-password"
@@ -71,6 +72,23 @@ export const LoginPage = () => {
                 onChange={(e) => setValuePassword(e.target.value)}
                 className="block w-full px-2 py-3 text-xl border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-transparent peer"
               />
+              <div className="absolute right-4 top-8 -translate-y-1/2">
+                {
+                  showPwd
+                    ? <button
+                        onClick={() => setShowPwd(false)}
+                        type="button"
+                      >
+                        <MdiEyeOff className="w-6 h-6" />
+                      </button>
+                    : <button
+                        onClick={() => setShowPwd(true)}
+                        type="button"
+                      >
+                        <MdiEye className="w-6 h-6"/>
+                      </button>
+                }
+              </div>
             </div>
 
             <ButtonToAction 
