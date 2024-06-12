@@ -26,6 +26,8 @@
       "@/redux/*": ["src/redux/*"],
       "@/guards/*": ["src/guards/*"],
       "@/utilities/*": ["src/utilities/*"],
+      "@/hooks/*": ["src/hooks/*"],
+
     },
 
     /* Linting */

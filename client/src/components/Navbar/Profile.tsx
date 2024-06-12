@@ -18,13 +18,13 @@ export const Profile = () => {
           <img src="https://i.pravatar.cc/300" className="h-12 w-12 rounded-full"/>
         </ButtonToAction>
 
-        <section className="absolute top-14 right-0">
+        <section className="absolute top-14 -right-2 w-40 text-gray-400">
           {open && (
             <div className="flex flex-col rounded-lg bg-white shadow-lg">
               <ul className="text-xl py-2 px-4">
-                <li><a href="/">Ajustes</a></li>
-                <li><a href="/">Perfil</a></li>
-                <li><a href="/">Cerrar Sesión</a></li>
+                <li className="py-1 hover:text-blue-500 focus:text-blue-500"><a href="/">Ajustes</a></li>
+                <li className="py-1 hover:text-blue-500 focus:text-blue-500"><a href="/">Perfil</a></li>
+                <li className="py-1 hover:text-blue-500 focus:text-blue-500"><a href="/">Cerrar Sesión</a></li>
               </ul>
             </div>
           )}
