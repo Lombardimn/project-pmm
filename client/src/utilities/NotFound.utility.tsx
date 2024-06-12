@@ -1,3 +1,4 @@
+import NotFoundPage from "@/pages/NotFound/NotFoundPage"
 import { Route, Routes } from "react-router-dom"
 
 interface Props {
@@ -8,7 +9,7 @@ export const RoutesWithNotFound = ({ children }: Props) => {
   return (
     <Routes>
       {children}
-      <Route path='*' element={<div>NOT FOUND</div>} />
+      <Route path='*' element={<NotFoundPage />} />
     </Routes>
   )
 }

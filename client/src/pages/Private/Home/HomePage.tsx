@@ -1,8 +1,18 @@
+import { Copyright, Navbar } from "@/components"
+
 const HomePage = () => {
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <>
+      <header className="h-24 flex justify-between items-center px-4 bg-blue-200">
+        <Navbar />
+      </header>
+      <main>
+        <h1>Home</h1>
+      </main>
+      <footer>
+        <Copyright />
+      </footer>
+    </>
   )
 }
 

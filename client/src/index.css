@@ -1,3 +1,143 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* FONTS */
+
+@layer base {
+
+  html {
+    font-family: 'CircularStd', 'Roboto', system-ui, sans-serif;
+  }
+
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  a,
+  img,
+  span,
+  input,
+  button {
+    display: block;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    height: auto;
+  }
+
+  input,
+  button {
+    background-color: inherit;
+    color: inherit;
+    font: inherit;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  sub {
+    
+    vertical-align: baseline;
+  }
+
+  sup {
+    vertical-align: super;
+  }
+
+  sub, sup {
+    font-size: 0.5em;
+  }
+
+  svg {
+    display: inline-block;
+  }
+
+  body {
+    font-size: 1.6rem;
+    /* overflow: hidden; */
+  }
+  
+  :focus-visible {
+    outline: 2px solid #dedede;
+    outline-offset: 2px;
+  }
+  
+  ::selection {
+    background-color: #575656;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 0px; /* for horizontal scrollbars */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #575656;
+    border-radius: 28px
+  }
+
+
+
+  /* FONTS */
+
+
+  @font-face {
+    font-family: 'CircularStd';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(/fonts/CircularStd-Medium.woff2) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'CircularStd';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(/fonts/CircularStd-Book.woff2) format('woff2');
+  }
+  
+  @font-face {
+    font-family: 'CircularStd';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url(/fonts/CircularStd-Light.woff2) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'CircularStd';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(/fonts/CircularStd-Bold.woff2) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'CircularStd';
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url(/fonts/CircularStd-Black.woff2) format('woff2');
+  }
+}

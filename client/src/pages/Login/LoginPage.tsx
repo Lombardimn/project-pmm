@@ -1,4 +1,4 @@
-import { ButtonToAction, CallToAction, Copyright, Loading, MdiEye, MdiEyeOff } from "@/components"
+import { ButtonToAction, CallToAction, Copyright, MdiEye, MdiEyeOff } from "@/components"
 import { useForm } from "react-hook-form"
 import { useState } from "react"
 
@@ -22,7 +22,7 @@ const LoginPage = () => {
       <main className="w-full h-full flex flex-col mx-auto mt-40">
         <section className="w-full px-4 flex flex-col justify-center content-center ">
           <img src="vite.svg" alt="logo de pagina" className="h-16" />
-          <h2 className="text-3xl text-center font-bold">Inicio de Sesión</h2>
+          <h2 className="text-3xl text-center font-bold mt-2">Inicio de Sesión</h2>
         </section>
 
         <section className="w-full px-4">
@@ -39,7 +39,7 @@ const LoginPage = () => {
                     ${
                       valueUsername 
                         ? '-top-4 z-10 bg-white px-1 after:content-["*"] after:ml-0.5 after:text-red-500' 
-                        : 'top-6 -translate-y-1/2'
+                        : 'top-7 -translate-y-1/2'
                     } 
                     peer-focus:top-0 peer-focus:text-xl peer-focus:text-blue-500
                   `
@@ -113,7 +113,7 @@ const LoginPage = () => {
                     {errors.password.message}
                   </span>
               }
-              <div className="absolute right-4 top-8 -translate-y-1/2">
+              <div className="absolute right-4 top-6 -translate-y-1/2">
                 {
                   showPwd
                     ? <button
@@ -139,13 +139,13 @@ const LoginPage = () => {
               Iniciar Sesion
             </ButtonToAction>
 
-            <div className="flex mx-2 justify-between">
-              <CallToAction href="/" className="text-blue-500 text-md text-left">
+            <div className="flex mx-2 mb-3 justify-between">
+              <CallToAction href="/" className="text-blue-500 text-lg text-left">
                 ¿Ha olvidado su contraseña?
               </CallToAction>
 
-              <CallToAction href="/" className="text-blue-500 text-md text-right">
-                ¿No tiene cuenta? <span className="underline">Regístrese</span>
+              <CallToAction href="/" className="text-blue-500 text-lg text-right">
+                ¿No tiene cuenta?
               </CallToAction>
             </div>
           </form>
@@ -154,8 +154,6 @@ const LoginPage = () => {
       <footer>
         <Copyright />
       </footer>
-
-      <Loading />
     </>
   )
 }
