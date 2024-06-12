@@ -5,6 +5,7 @@ export interface ButtonActionProps {
   className: string,
   type?: "submit" | "reset" | "button",
   onClick?: () => void
+  onChange?: () => void
 }
 
 export interface CallToActionProps {

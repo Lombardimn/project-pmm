@@ -7,3 +7,4 @@ export * from './Icons/LoadMdi';
 export * from './Loader/Loading';
 export * from './models/button.model';
 export * from './Navbar/Navbar';
+export * from './Navbar/Profile';

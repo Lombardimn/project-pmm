@@ -6,6 +6,7 @@ export const ButtonToAction = (Props: ButtonActionProps) => {
     <button
       className={Props.className}
       type={Props.type}
+      onClick={Props.onClick}
     >
       {Props.children}
     </button>

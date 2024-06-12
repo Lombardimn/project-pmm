@@ -1,0 +1,34 @@
+import { useState } from "react"
+import { ButtonToAction } from "@/components"
+
+export const Profile = () => {
+  const [open, setOpen] = useState(false)
+
+  const handleChange = () => {
+    setOpen(!open)
+  }
+
+  return (
+    <div className="relative flex flex-col">
+        <ButtonToAction 
+          type="button" 
+          className="h-12 w-12 rounded-full bg-gray-300 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-50"
+          onClick={handleChange}
+        >
+          <img src="https://i.pravatar.cc/300" className="h-12 w-12 rounded-full"/>
+        </ButtonToAction>
+
+        <section className="absolute top-14 right-0">
+          {open && (
+            <div className="flex flex-col rounded-lg bg-white shadow-lg">
+              <ul className="text-xl py-2 px-4">
+                <li><a href="/">Ajustes</a></li>
+                <li><a href="/">Perfil</a></li>
+                <li><a href="/">Cerrar Sesión</a></li>
+              </ul>
+            </div>
+          )}
+        </section>
+    </div>
+  )
+}
