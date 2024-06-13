@@ -20,7 +20,7 @@ export const Profile = () => {
 
         <section className="absolute top-14 -right-2 w-40 text-gray-400">
           {open && (
-            <div className="flex flex-col rounded-lg bg-white shadow-lg">
+            <div className="flex flex-col rounded-lg bg-slate-50 shadow-lg shadow-neutral-950/40  ">
               <ul className="text-xl py-2 px-4">
                 <li className="py-1 hover:text-blue-500 focus:text-blue-500"><a href="/private/profile">Perfil</a></li>
                 <li className="py-1 hover:text-blue-500 focus:text-blue-500"><a href="/private/customers">Ajustes</a></li>
