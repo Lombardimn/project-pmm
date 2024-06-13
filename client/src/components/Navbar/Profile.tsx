@@ -22,9 +22,9 @@ export const Profile = () => {
           {open && (
             <div className="flex flex-col rounded-lg bg-white shadow-lg">
               <ul className="text-xl py-2 px-4">
-                <li className="py-1 hover:text-blue-500 focus:text-blue-500"><a href="/">Ajustes</a></li>
-                <li className="py-1 hover:text-blue-500 focus:text-blue-500"><a href="/">Perfil</a></li>
-                <li className="py-1 hover:text-blue-500 focus:text-blue-500"><a href="/">Cerrar Sesión</a></li>
+                <li className="py-1 hover:text-blue-500 focus:text-blue-500"><a href="/private/profile">Perfil</a></li>
+                <li className="py-1 hover:text-blue-500 focus:text-blue-500"><a href="/private/customers">Ajustes</a></li>
+                <li className="py-1 hover:text-blue-500 focus:text-blue-500"><a href="/login">Cerrar Sesión</a></li>
               </ul>
             </div>
           )}
