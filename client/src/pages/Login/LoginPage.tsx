@@ -9,12 +9,18 @@ const LoginPage = () => {
 
   const {register, handleSubmit, formState: {errors} } = useForm()
 
-  const handleChangeUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValueUsername(event.target.value)
-  }
-
-  const handleChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValuePassword(event.target.value)
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    switch (name) {
+      case 'username':
+        setValueUsername(value);
+        break;
+      case 'password':
+        setValuePassword(value);
+        break;
+      default:
+        break;
+    }
   }
 
   return (
@@ -58,7 +64,7 @@ const LoginPage = () => {
                     required: "Ingrese un usuario",
                     minLength: {value:3, message: "Mínimo 3 caracteres"},
                     maxLength: {value:20, message: "Máximo 20 caracteres"},
-                    onChange: handleChangeUsername
+                    onChange: handleInputChange
                   }
                 )}
               />
@@ -100,8 +106,7 @@ const LoginPage = () => {
                     required: "Ingrese una contraseña",
                     minLength: {value:8, message: "Mínimo 8 caracteres"},
                     maxLength: {value:50, message: "Mínimo 50 caracteres"},
-                    pattern: { value: /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}/g, message: "Debe contener al menos una letra A-Z, una letra a-z y un 0-9" },
-                    onChange: handleChangePassword
+                    onChange: handleInputChange
                   }
                 )}
               />
@@ -133,7 +138,7 @@ const LoginPage = () => {
             </div>
 
             <ButtonToAction 
-              className="px-2 py-3 mt-14 text-center text-xl font-semibold text-white border border-transparent bg-gradient-to-r from-blue-700 from-10% via-sky-700 via-30% bg-cyan-700 to-90% rounded-lg hover:from-blue-500 hover:via-sky-500 hover:to-cyan-500 focus:ring focus:ring-cyan-300"
+              className="px-2 py-3 mt-5 text-center text-xl font-semibold text-white border border-transparent bg-gradient-to-r from-blue-700 from-10% via-sky-700 via-30% bg-cyan-700 to-90% rounded-lg hover:from-blue-500 hover:via-sky-500 hover:to-cyan-500 focus:ring focus:ring-cyan-300"
               type="submit"
             >
               Iniciar Sesion
