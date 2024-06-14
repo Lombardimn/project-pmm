@@ -3,4 +3,7 @@ export * from './NotFound/NotFoundPage';
 export * from './Private/Dashboard/DashboardPage';
 export * from './Private/Home/HomePage';
 export * from './Private/PrivatePage';
+export * from './Private/Profile/components/DropZone';
 export * from './Private/Profile/ProfilePage';
+export * from './Private/Profile/services/updateProfile.service';
+export * from './Private/Profile/services/uploadToCloud.service';

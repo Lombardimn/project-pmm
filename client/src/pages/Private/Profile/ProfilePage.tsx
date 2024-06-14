@@ -1,20 +1,37 @@
 import { ButtonToAction, Copyright, MdiEye, MdiEyeOff, Navbar } from "@/components"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { CloudinaryUploadResult, updateProfile, uploadToCloudinary } from "@/pages"
+import DropZone from "./components/DropZone"
 
-const ProfliePage = () => {
-  const [valueUsername, setValueUsername] = useState('')
-  const [valueEmail, setValueEmail] = useState('')
-  const [valuePassword, setValuePassword] = useState('')
-  const [valueRepeatPassword, setValueRepeatPassword] = useState('')
-  const [showPwd, setShowPwd] = useState(true)
-  const [showRepeatPwd, setShowRepeatPwd] = useState(true)
+const ProfliePage: React.FC = () => {
+  const [valueUsername, setValueUsername] = useState<string>('')
+  const [valueEmail, setValueEmail] = useState<string>('')
+  const [valuePassword, setValuePassword] = useState<string>('')
+  const [valueRepeatPassword, setValueRepeatPassword] = useState<string>('')
+  const [uploadStatus, setUploadStatus] = useState<string>('')
+  const [imageUrl, setImageUrl] = useState<string>('')
+  const [showPwd, setShowPwd] = useState<boolean>(true)
+  const [showRepeatPwd, setShowRepeatPwd] = useState<boolean>(true)
 
   const { register, handleSubmit, formState: { errors } } = useForm()
 
+  const handleFilesAccepted = async (files: File[]) => {
+    setUploadStatus('Uploading...')
+    try {
+      for (const file of files) {
+        const result: CloudinaryUploadResult = await uploadToCloudinary(file)
+        setImageUrl(result.toString())
+      }
+
+      setUploadStatus('Upload successful!')
+    } catch (error) {
+      setUploadStatus('Upload failed.')
+    }
+  }
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    console.log(name, value)
+    const { name, value } = event.target
     switch (name) {
       case 'modifyUsername':
         setValueUsername(value)
@@ -134,7 +151,7 @@ const ProfliePage = () => {
             <h3 className="font-bold text-xl mt-2">Credenciales</h3>
             <div className="relative">
               <label
-                htmlFor="password"
+                htmlFor="modifyPassword"
                 className={
                   `
                     absolute left-4 text-xl text-gray-500 transition-all duration-200 ease-in-out transform
@@ -258,18 +275,20 @@ const ProfliePage = () => {
             </ButtonToAction>
             <div className="flex justify-evenly place-content-evenly items-center mt-4">
               <img 
-                src="https://i.pravatar.cc/300" 
+                src={imageUrl ? imageUrl : '/images/baseuser.jpg'}
                 alt="Foto de perfil del usuario" 
-                className="w-24 h-24 rounded-full"
+                className="w-24 h-24 rounded-full border border-gray-400"
               />
               <ButtonToAction 
               className="px-2 py-3 h-14 text-center text-xl font-semibold text-white border border-transparent bg-gradient-to-r from-blue-700 from-10% via-sky-700 via-30% bg-cyan-700 to-90% rounded-lg hover:from-blue-500 hover:via-sky-500 hover:to-cyan-500 focus:ring focus:ring-cyan-300"
-              type="submit"
+              type="button"
+              onClick={updateProfile}
             >
               Cambiar Imagen
             </ButtonToAction>
             </div>
-            <div>zona de carga</div>
+            <DropZone onFilesAccepted={handleFilesAccepted} />
+            <p>{uploadStatus}</p>
           </form>
         </section>
       </main>
