@@ -1,8 +1,8 @@
-import { Router } from "express"
-import { authRequired } from "../../../gateway/middlewares/validate.middleware.js"
-import { validateSchema } from "../../../gateway/middlewares/schema.middleware.js"
-import { rolSchema } from "../validators/rol.schema.js"
-import { getRoles, getRol, createRol, updateRol } from "../controllers/rol.controllers.js"
+import { Router } from 'express'
+import { authRequired } from '../../../gateway/middlewares/validate.middleware.js'
+import { validateSchema } from '../../../gateway/middlewares/schema.middleware.js'
+import { rolSchema } from '../validators/rol.schema.js'
+import { getRoles, getRol, createRol, updateRol } from '../controllers/rol.controllers.js'
 
 const router = Router()
 
@@ -24,6 +24,7 @@ router.post(
 router.put(
   '/roles/:rol',
   authRequired,
+  validateSchema(rolSchema),
   updateRol
 )
 

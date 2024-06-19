@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs'
-import { pool } from "../models/user.model.js"
+import { pool } from '../models/user.model.js'
 import { createAccessToken } from '../../../gateway/libs/jtw.js'
 
 export const loginUser = async (req, res) => {
@@ -13,24 +13,19 @@ export const loginUser = async (req, res) => {
 
     // VALIDATE USER
 
-    if (result.length === 0) return res.status(404).json({
-      message: 'invalid credentials'
-    })
+    if (result.length === 0) return res.status(404).json({ message: 'Credenciales inválidas' })
 
     const validPassword = await bcrypt.compare(password, result[0].password)
 
-    if (!validPassword) return res.status(401).json({
-      message: 'Invalid credentials'
-    })
+    if (!validPassword) return res.status(401).json({ message: 'Credenciales inválidas' })
 
     // CREATE TOKEN
-    const token = await createAccessToken({ 
+    const token = await createAccessToken({
       id: result[0].id
     })
 
     res.cookie('token', token)
-    res.json('User logged in')
-
+    res.json('Usuario logeado correctamente')
   } catch (error) {
     return res.status(500).json({
       message: error.message
@@ -62,7 +57,6 @@ export const profileUser = async (req, res) => {
       createAt: result[0].created_at,
       updatedAt: result[0].updated_at
     })
-
   } catch (error) {
     return res.status(500).json({
       message: error.message
