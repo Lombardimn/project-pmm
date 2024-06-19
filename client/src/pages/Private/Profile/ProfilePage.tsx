@@ -1,8 +1,9 @@
 import { ButtonToAction, Copyright, MdiEye, MdiEyeOff, Navbar } from "@/components"
+import { CloudinaryUploadResult, updateProfile, uploadToCloudinary } from "@/pages"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
-import { CloudinaryUploadResult, updateProfile, uploadToCloudinary } from "@/pages"
 import DropZone from "./components/DropZone"
+import { FormDataProps } from '@/pages'
 
 const ProfliePage: React.FC = () => {
   const [valueUsername, setValueUsername] = useState<string>('')
@@ -14,7 +15,7 @@ const ProfliePage: React.FC = () => {
   const [showPwd, setShowPwd] = useState<boolean>(true)
   const [showRepeatPwd, setShowRepeatPwd] = useState<boolean>(true)
 
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const { register, handleSubmit, formState: { errors } } = useForm<FormDataProps>()
 
   const handleFilesAccepted = async (files: File[]) => {
     setUploadStatus('Uploading...')
@@ -50,6 +51,16 @@ const ProfliePage: React.FC = () => {
     }
   }
 
+  const onSubmit = () => {
+    // const dataForm = {
+    //   username: data.modifyUsername,
+    //   email: data.modifyEmail,
+    //   password: data.modifyPassword,
+    // }
+
+    return updateProfile()
+  }
+
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 bg-gray-700 px-4">
@@ -64,7 +75,7 @@ const ProfliePage: React.FC = () => {
         <section className="mx-4 pt-4">
           <form
             className="flex flex-col gap-4"
-            onSubmit={handleSubmit((data) => console.log(data))}
+            onSubmit={handleSubmit(onSubmit)}
           >
             <h3 className="font-bold text-xl mt-8">Cuenta</h3>
             <div className="relative">
@@ -87,11 +98,10 @@ const ProfliePage: React.FC = () => {
                 placeholder="Usuario"
                 autoComplete="username"
                 aria-invalid="false"
-                required
                 className="block w-full px-2 py-3 mb-4 text-xl border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-transparent peer"
                 {...register("modifyUsername",
                   {
-                    required: "Ingrese un usuario",
+                    required: false,
                     minLength: { value: 3, message: "Mínimo 3 caracteres" },
                     maxLength: { value: 20, message: "Máximo 20 caracteres" },
                     onChange: handleInputChange
@@ -128,11 +138,10 @@ const ProfliePage: React.FC = () => {
                 placeholder="Email"
                 autoComplete="email"
                 aria-invalid="false"
-                required
                 className="block w-full px-2 py-3 mb-4 text-xl border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-transparent peer"
                 {...register("modifyEmail",
                   {
-                    required: 'Por favor ingresa un email valido',
+                    required: false,
                     pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                     onChange: handleInputChange
                   }
@@ -147,7 +156,7 @@ const ProfliePage: React.FC = () => {
                 </span>
               }
             </div>
-            
+
             <h3 className="font-bold text-xl mt-2">Credenciales</h3>
             <div className="relative">
               <label
@@ -236,7 +245,8 @@ const ProfliePage: React.FC = () => {
                     minLength: { value: 8, message: "Mínimo 8 caracteres" },
                     maxLength: { value: 50, message: "Mínimo 50 caracteres" },
                     pattern: { value: /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}/g, message: "Debe contener al menos una letra A-Z, una letra a-z y un 0-9" },
-                    onChange: handleInputChange
+                    onChange: handleInputChange,
+                    validate: (value) => value === valuePassword || 'Las contraseñas no coinciden',
                   }
                 )}
               />
@@ -266,26 +276,25 @@ const ProfliePage: React.FC = () => {
                 }
               </div>
             </div>
-                
-            <ButtonToAction 
+
+            <ButtonToAction
               className="px-2 py-3 mt-14 text-center text-xl font-semibold text-white border border-transparent bg-gradient-to-r from-blue-700 from-10% via-sky-700 via-30% bg-cyan-700 to-90% rounded-lg hover:from-blue-500 hover:via-sky-500 hover:to-cyan-500 focus:ring focus:ring-cyan-300"
               type="submit"
             >
               Actualizar
             </ButtonToAction>
             <div className="flex justify-evenly place-content-evenly items-center mt-4">
-              <img 
+              <img
                 src={imageUrl ? imageUrl : '/images/baseuser.jpg'}
-                alt="Foto de perfil del usuario" 
+                alt="Foto de perfil del usuario"
                 className="w-24 h-24 rounded-full border border-gray-400"
               />
-              <ButtonToAction 
-              className="px-2 py-3 h-14 text-center text-xl font-semibold text-white border border-transparent bg-gradient-to-r from-blue-700 from-10% via-sky-700 via-30% bg-cyan-700 to-90% rounded-lg hover:from-blue-500 hover:via-sky-500 hover:to-cyan-500 focus:ring focus:ring-cyan-300"
-              type="button"
-              onClick={updateProfile}
-            >
-              Cambiar Imagen
-            </ButtonToAction>
+              <ButtonToAction
+                className="px-2 py-3 h-14 text-center text-xl font-semibold text-white border border-transparent bg-gradient-to-r from-blue-700 from-10% via-sky-700 via-30% bg-cyan-700 to-90% rounded-lg hover:from-blue-500 hover:via-sky-500 hover:to-cyan-500 focus:ring focus:ring-cyan-300"
+                type="button"
+              >
+                Cambiar Imagen
+              </ButtonToAction>
             </div>
             <DropZone onFilesAccepted={handleFilesAccepted} />
             <p>{uploadStatus}</p>

@@ -5,3 +5,5 @@ export * from './Profile/components/DropZone';
 export * from './Profile/ProfilePage';
 export * from './Profile/services/updateProfile.service';
 export * from './Profile/services/uploadToCloud.service';
+export * from './Profile/utils/dataForm.util';
+export * from './Profile/utils/dropzone.util';

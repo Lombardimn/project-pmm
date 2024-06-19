@@ -1,9 +1,6 @@
 import { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
-
-interface DropZoneProps {
-  onFilesAccepted: (files: File[]) => void
-}
+import { DropZoneProps} from '@/pages'
 
 const DropZone: React.FC<DropZoneProps> = ({ onFilesAccepted }) => {
   const onDrop = useCallback((acceptedFiles: File[]) => {

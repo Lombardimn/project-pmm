@@ -20,6 +20,7 @@ CREATE TABLE Users (
 	email VARCHAR(50) NOT NULL UNIQUE,
 	password VARCHAR(61) NOT NULL,
 	rol INT NOT NULL,
+	img_url VARCHAR(255) NOT NULL DEFAULT('https://res.cloudinary.com/lombardidev/image/upload/v1718419262/baseuser_eq2osl.jpg'),
 	active BOOLEAN NOT NULL DEFAULT 1,
 	created_at TIMESTAMP NOT NULL DEFAULT(NOW()),
 	updated_at TIMESTAMP NOT NULL DEFAULT(NOW()),

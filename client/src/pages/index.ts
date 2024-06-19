@@ -7,3 +7,5 @@ export * from './Private/Profile/components/DropZone';
 export * from './Private/Profile/ProfilePage';
 export * from './Private/Profile/services/updateProfile.service';
 export * from './Private/Profile/services/uploadToCloud.service';
+export * from './Private/Profile/utils/dataForm.util';
+export * from './Private/Profile/utils/dropzone.util';
