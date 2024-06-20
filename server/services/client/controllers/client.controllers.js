@@ -11,11 +11,11 @@ export const getClients = async (req, res) => {
     )
 
     res.json(result)
-
   } catch (error) {
+    console.error('Error en getClients:', error)
     return res.status(500)
       .json({
-        message: error.message
+        message: 'Error al consultar los clientes'
       })
   }
 }
@@ -23,7 +23,7 @@ export const getClients = async (req, res) => {
 export const getClient = async (req, res) => {
   const { lastname } = req.body
   req.params.client = req.body.name
-  
+
   try {
     const [result] = await pool.query(
 
@@ -43,21 +43,21 @@ export const getClient = async (req, res) => {
     )
 
     res.json(result)
-
   } catch (error) {
+    console.error('Error en getClient:', error)
     return res.status(500)
       .json({
-        message: error.message
+        message: 'Error al consultar el cliente'
       })
   }
 }
 
 export const createClient = async (req, res) => {
-  const { 
+  const {
     name,
     lastname,
-    area_phone,
-    number_phone,
+    areaPhone,
+    numberPhone
   } = req.body
 
   try {
@@ -76,30 +76,30 @@ export const createClient = async (req, res) => {
       [
         name,
         lastname,
-        area_phone,
-        number_phone,
+        areaPhone,
+        numberPhone,
         req.decoded.id,
         new Date(),
         new Date()
-      ]	
+      ]
     )
 
     res.json(result)
-
   } catch (error) {
+    console.error('Error en createClient:', error)
     return res.status(500)
       .json({
-        message: error.message
-      }) 
+        message: 'Error al crear el cliente'
+      })
   }
 }
 
 export const updateClient = async (req, res) => {
-  const { 
+  const {
     name,
     lastname,
-    area_phone,
-    number_phone,
+    areaPhone,
+    numberPhone
   } = req.body
 
   try {
@@ -113,21 +113,21 @@ export const updateClient = async (req, res) => {
         {
           name,
           lastname,
-          area_phone,
-          number_phone,
+          areaPhone,
+          numberPhone,
           user_id: req.decoded.id,
           updated_at: new Date()
         },
         req.params.id
-      ]	
+      ]
     )
 
     res.json(result)
-
   } catch (error) {
+    console.error('Error en updateClient:', error)
     return res.status(500)
       .json({
-        message: error.message
+        message: 'Error al actualizar el cliente'
       })
   }
 }
@@ -140,18 +140,16 @@ export const deleteClient = async (req, res) => {
         WHERE id = ?
       `,
       [req.params.id]
-    ) 
+    )
 
-    if (result.affectedRows === 0) return res.status(404).json({
-      message: 'Client not found'
-    })
+    if (result.affectedRows === 0) return res.status(404).json({ message: 'Client not found' })
 
     return res.sendStatus(204)
-
   } catch (error) {
+    console.error('Error en deletedClient:', error)
     return res.status(500)
       .json({
-        message: error.message
+        message: 'Error al eliminar el cliente'
       })
   }
 }

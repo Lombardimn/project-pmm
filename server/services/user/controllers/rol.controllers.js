@@ -2,20 +2,26 @@ import { pool } from '../models/user.model.js'
 
 export const createRol = async (req, res) => {
   const { rol, description } = req.body
+
   try {
     await pool.query(
-      'INSERT INTO Roles (rol, description) VALUES (?,?)',
+      'INSERT INTO Roles (rol, description, user_id_create, created_at, user_id_update, updated_at) VALUES (?,?,?,?,?,?)',
       [
         rol,
-        description
+        description,
+        req.decoded.id,
+        new Date(),
+        req.decoded.id,
+        new Date()
       ]
     )
 
     return res.status(200).json({ message: 'Rol creado' })
   } catch (error) {
+    console.error('Error en createRol:', error)
     return res.status(500)
       .json({
-        message: error.message
+        message: 'Error al crear un rol'
       })
   }
 }
@@ -31,9 +37,10 @@ export const getRol = async (req, res) => {
 
     res.json(result[0])
   } catch (error) {
+    console.error('Error en getRol:', error)
     return res.status(500)
       .json({
-        message: error.message
+        message: 'Error al consultar un rol registrado'
       })
   }
 }
@@ -46,9 +53,10 @@ export const getRoles = async (req, res) => {
 
     res.json(result)
   } catch (error) {
+    console.error('Error en getRoles:', error)
     return res.status(500)
       .json({
-        message: error.message
+        message: 'Error al consultar los roles registrados'
       })
   }
 }
@@ -64,6 +72,7 @@ export const updateRol = async (req, res) => {
           rol,
           description,
           active,
+          user_id_update: req.decoded.id,
           updated_at: new Date()
         },
         req.params.rol
@@ -71,11 +80,11 @@ export const updateRol = async (req, res) => {
     )
 
     res.json(result)
-    res.redirect('/roles/' + rol)
   } catch (error) {
+    console.error('Error en updateUsers:', error)
     return res.status(500)
       .json({
-        message: error.message
+        message: 'Error al actualizar el rol ' + req.params.rol
       })
   }
 }

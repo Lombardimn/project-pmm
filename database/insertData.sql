@@ -2,22 +2,24 @@
 
 USE users_service;
 
-/* Insertar registros en la tabla Roles */
-INSERT INTO Roles (rol, description, active, created_at, updated_at) VALUES
-('Admin', 'Administrator role', 1, NOW(), NOW()),
-('User', 'Regular user role', 1, NOW(), NOW()),
-('Guest', 'Guest user role', 1, NOW(), NOW()),
-('Moderator', 'Moderator role', 1, NOW(), NOW());
-
 /* Insertar registros en la tabla Users */
-INSERT INTO Users (id, username, email, password, rol, active, created_at, updated_at) VALUES
-(UUID(), 'admin_user', 'admin@example.com', 'password_hash_1', 1, 1, NOW(), NOW()),
-(UUID(), 'regular_user', 'user@example.com', 'password_hash_2', 2, 1, NOW(), NOW()),
-(UUID(), 'guest_user', 'guest@example.com', 'password_hash_3', 3, 1, NOW(), NOW()),
-(UUID(), 'moderator_user', 'moderator@example.com', 'password_hash_4', 4, 1, NOW(), NOW());
+INSERT INTO Users (id, username, email, password, active, created_at, updated_at) VALUES
+("281af96e-f3dc-401e-b6c1-f0db857522cb", 'admin', 'admin1@example.com', 'password_hash_0', 1, NOW(), NOW()),
+(UUID(), 'admin_user', 'admin@example.com', 'password_hash_1', 1, NOW(), NOW()),
+(UUID(), 'regular_user', 'user@example.com', 'password_hash_2', 1, NOW(), NOW()),
+(UUID(), 'guest_user', 'guest@example.com', 'password_hash_3', 1, NOW(), NOW()),
+(UUID(), 'moderator_user', 'moderator@example.com', 'password_hash_4', 1, NOW(), NOW());
 
+/* Insertar registros en la tabla Roles */
+INSERT INTO Roles (rol, description, active, user_id_create, created_at, user_id_update, updated_at) VALUES
+('Admin', 'Administrator role', 1,"281af96e-f3dc-401e-b6c1-f0db857522cb" ,NOW(),"281af96e-f3dc-401e-b6c1-f0db857522cb", NOW()),
+('User', 'Regular user role', 1,"281af96e-f3dc-401e-b6c1-f0db857522cb" ,NOW(),"281af96e-f3dc-401e-b6c1-f0db857522cb", NOW()),
+('Guest', 'Guest user role', 1,"281af96e-f3dc-401e-b6c1-f0db857522cb" ,NOW(),"281af96e-f3dc-401e-b6c1-f0db857522cb", NOW()),
+('Moderator', 'Moderator role', 1,"281af96e-f3dc-401e-b6c1-f0db857522cb" ,NOW(),"281af96e-f3dc-401e-b6c1-f0db857522cb", NOW());
 
-
+/* Insertar registros en la tabla Int_user_rol */
+INSERT INTO Int_user_rol (user_id, rol_id) VALUES
+("281af96e-f3dc-401e-b6c1-f0db857522cb", 1);
 
 USE clients_service;
 

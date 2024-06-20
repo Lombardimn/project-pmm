@@ -20,15 +20,15 @@ router.get(
 
 router.post(
   '/users',
-  authRequired,
   validateSchema(userSchema),
+  authRequired,
   createUser
 )
 
 router.put(
   '/users/:username',
-  authRequired,
   validateSchema(userSchema),
+  authRequired,
   updateUser
 )
 

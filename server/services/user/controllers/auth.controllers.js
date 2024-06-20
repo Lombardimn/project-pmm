@@ -27,9 +27,11 @@ export const loginUser = async (req, res) => {
     res.cookie('token', token)
     res.json('Usuario logeado correctamente')
   } catch (error) {
-    return res.status(500).json({
-      message: error.message
-    })
+    console.error('Error en loginUser:', error)
+    return res.status(500)
+      .json({
+        message: 'Error al iniciar sesión'
+      })
   }
 }
 
@@ -58,8 +60,10 @@ export const profileUser = async (req, res) => {
       updatedAt: result[0].updated_at
     })
   } catch (error) {
-    return res.status(500).json({
-      message: error.message
-    })
+    console.error('Error en profileUser:', error)
+    return res.status(500)
+      .json({
+        message: 'Error al consultar el perfil de usuario'
+      })
   }
 }

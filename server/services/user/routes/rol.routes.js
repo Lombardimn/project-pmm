@@ -16,15 +16,15 @@ router.get(
 
 router.post(
   '/roles',
-  authRequired,
   validateSchema(rolSchema),
+  authRequired,
   createRol
 )
 
 router.put(
   '/roles/:rol',
-  authRequired,
   validateSchema(rolSchema),
+  authRequired,
   updateRol
 )
 

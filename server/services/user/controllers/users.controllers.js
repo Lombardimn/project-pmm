@@ -11,9 +11,10 @@ export const getUsers = async (req, res) => {
 
     res.json(result)
   } catch (error) {
+    console.error('Error en getUsers:', error)
     return res.status(500)
       .json({
-        message: error.message
+        message: 'Error al consultar los usuarios registrados'
       })
   }
 }
@@ -25,33 +26,32 @@ export const getUser = async (req, res) => {
       [req.params.username]
     )
 
-    if (result.length === 0) return res.status(404).json({ message: 'User not found' })
+    if (result.length === 0) return res.status(404).json({ message: 'Usuario no encontrado' })
 
     res.json(result[0])
   } catch (error) {
-    console.error('Error en getUsers:', error)
+    console.error('Error en getUser:', error)
     return res.status(500)
       .json({
-        message: 'Error al consultar los usuarios registrados'
+        message: 'Error al consultar el usuarios registrado'
       })
   }
 }
 
 export const createUser = async (req, res) => {
-  const { username, email, password, rol } = req.body
+  const { username, email, password } = req.body
 
   try {
     const passwordHash = await bcrypt.hash(password, 10)
     const id = uuidv4()
 
     await pool.query(
-      'INSERT INTO Users (id, username, email, password, rol) VALUES (?,?,?,?,?)',
+      'INSERT INTO Users (id, username, email, password) VALUES (?,?,?,?)',
       [
         id,
         username,
         email,
-        passwordHash,
-        rol
+        passwordHash
       ]
     )
 
@@ -65,10 +65,10 @@ export const createUser = async (req, res) => {
       username
     })
   } catch (error) {
-    console.error('Error en getUser:', error)
+    console.error('Error en createUser:', error)
     return res.status(500)
       .json({
-        message: 'Error al consultar usuario'
+        message: 'Error al crear un usuario'
       })
   }
 }

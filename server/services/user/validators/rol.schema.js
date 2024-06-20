@@ -14,5 +14,15 @@ export const rolSchema = z.object({
   active: z.optional(z
     .number({ required_error: 'El estado es requerido', invalid_type_error: 'Debe ser un número' })
     .max(1, { message: 'Debe ser 0 o 1' })
-  )
+  ),
+  user_id_create: z.optional(z
+    .string({ required_error: 'El usuario es requerido', invalid_type_error: 'Debe ser una cadena de texto' })
+    .max(36, { message: 'Debe tener menos de 36 caracteres' })
+  ),
+  created_at: z.optional(z.date()),
+  user_id_update: z.optional(z
+    .string({ required_error: 'El usuario es requerido', invalid_type_error: 'Debe ser una cadena de texto' })
+    .max(36, { message: 'Debe tener menos de 36 caracteres' })
+  ),
+  updated_at: z.optional(z.date())
 })
