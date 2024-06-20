@@ -1,8 +1,8 @@
-import { Router } from "express"
-import { getProducts, getProduct, createProduct, updateProduct, deleteProduct } from "../controllers/product.controllers.js"
-import { authRequired } from "../../../gateway/middlewares/validate.middleware.js"
-import { validateSchema } from "../../../gateway/middlewares/schema.middleware.js"
-import { productSchema } from "../validators/product.schema.js"
+import { Router } from 'express'
+import { getProducts, getProduct, createProduct, updateProduct, deleteProduct } from '../controllers/product.controllers.js'
+import { authRequired } from '../../../gateway/middlewares/validate.middleware.js'
+import { validateSchema } from '../../../gateway/middlewares/schema.middleware.js'
+import { productSchema } from '../validators/product.schema.js'
 
 const router = Router()
 
@@ -27,6 +27,7 @@ router.post(
 
 router.put(
   '/products/:id',
+  validateSchema(productSchema),
   authRequired,
   updateProduct
 )

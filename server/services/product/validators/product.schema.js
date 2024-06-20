@@ -1,36 +1,53 @@
-import joi from 'joi'
 import { z } from 'zod'
 
-export const productSchema = joi.object({
-  id: joi.string().required(),
-  name: joi.string().min(3).max(50).trim().required(),
-  description: joi.string().min(3).max(255).trim().required(),
-  category: joi.number().required(),
-  brand: joi.string().min(3).max(50).trim().required(),
-  image: joi.string().required(),
-  unit: joi.number().required(),
-  price_unit: joi.number().min(0).required(),
-  min_stock: joi.number().min(0).required(),
-  max_stock: joi.number().min(0).required(),
-  status: joi.number().required(),
-  expiring: joi.boolean().required(),
-  created_at: joi.date(),
-  updated_at: joi.date()
+export const productSchema = z.object({
+  id: z
+    .string({ required_error: 'El id es requerido', invalid_type_error: 'Debe ser una cadena de texto' }),
+  name: z
+    .string({ required_error: 'El nombre es requerido', invalid_type_error: 'Debe ser una cadena de texto' })
+    .min(3, { message: 'Debe tener al menos 3 caracteres' })
+    .max(50, { message: 'Debe tener menos de 50 caracteres' })
+    .trim(),
+  description: z
+    .string({ required_error: 'La descripción es requerida', invalid_type_error: 'Debe ser una cadena de texto' })
+    .min(3, { message: 'Debe tener al menos 3 caracteres' })
+    .max(255, { message: 'Debe tener menos de 255 caracteres' })
+    .trim(),
+  category: z.optional(z
+    .number({ required_error: 'La categoria es requerida', invalid_type_error: 'Debe ser un número' })
+    .max(1, { message: 'Debe ser 0 o 1' })
+  ),
+  brand: z.optional(z
+    .string({ required_error: 'La marca es requerida', invalid_type_error: 'Debe ser una cadena de texto' })
+    .min(3, { message: 'Debe tener al menos 3 caracteres' })
+    .max(50, { message: 'Debe tener menos de 50 caracteres' })
+    .trim()
+  ),
+  image: z.optional(z
+    .string({ required_error: 'La imagen es requerida', invalid_type_error: 'Debe ser una cadena de texto' })
+    .max(255, { message: 'Debe tener menos de 255 caracteres' })
+  ),
+  unit: z
+    .number({ required_error: 'La unidad es requerida', invalid_type_error: 'Debe ser un número' })
+    .max(1, { message: 'Debe ser 0 o 1' }),
+  price_unit: z
+    .number({ required_error: 'El precio unitario es requerido', invalid_type_error: 'Debe ser un número' })
+    .max(1, { message: 'Debe ser 0 o 1' }),
+  min_stock: z.optional(z
+    .number({ required_error: 'El stock minimo es requerido', invalid_type_error: 'Debe ser un número' })
+    .max(9999999, { message: 'Debe ser menor a 9999999' })
+  ),
+  max_stock: z.optional(z
+    .number({ required_error: 'El stock maximo es requerido', invalid_type_error: 'Debe ser un número' })
+    .min(0, { message: 'Debe ser mayor a 0' })
+    .max(9999999, { message: 'Debe ser menor a 9999999' })
+  ),
+  status: z
+    .number({ required_error: 'El estado es requerido', invalid_type_error: 'Debe ser un número' })
+    .max(1, { message: 'Debe ser 0 o 1' }),
+  expiring: z
+    .number({ required_error: 'La expiración es requerida', invalid_type_error: 'Debe ser un número' })
+    .max(1, { message: 'Debe ser 0 o 1' }),
+  created_at: z.optional(z.date()),
+  updated_at: z.date()
 })
-
-// export const productSchemaZod = z.object({
-//   id: z.string().required(),
-//   name: z.string().min(3).max(50).trim().required(),
-//   description: z.string().min(3).max(255).trim().required(),
-//   category: z.number().required(),
-//   brand: z.string().min(3).max(50).trim().required(),
-//   image: z.string().required(),
-//   unit: z.number().required(),
-//   price_unit: z.number().min(0).required(),
-//   min_stock: z.number().min(0).required(),
-//   max_stock: z.number().min(0).required(),
-//   status: z.number().required(),
-//   expiring: z.boolean().required(),
-//   created_at: z.date(),
-//   updated_at: z.date()
-// })

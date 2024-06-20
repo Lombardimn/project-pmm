@@ -1,4 +1,4 @@
-import { pool } from "../models/product.model.js"
+import { pool } from '../models/product.model.js'
 
 export const getMenus = async (req, res) => {
   try {
@@ -11,18 +11,17 @@ export const getMenus = async (req, res) => {
     )
 
     res.json(result)
-
   } catch (error) {
+    console.error('Error en getMenus:', error)
     return res.status(500)
       .json({
-        message: error.message
+        message: 'Error al consultar los menus'
       })
   }
 }
 
 export const getMenu = async (req, res) => {
   try {
-
     const [result] = await pool.query(
       `
         SELECT Menus.id, Menus.name, Products.name, Categories.name AS category_name
@@ -42,9 +41,10 @@ export const getMenu = async (req, res) => {
 
     res.json(result)
   } catch (error) {
+    console.error('Error en getMenu:', error)
     return res.status(500)
       .json({
-        message: error.message
+        message: 'Error al consultar un menu registrado'
       })
   }
 }
@@ -55,8 +55,8 @@ export const createMenu = async (req, res) => {
     description,
     status,
     image,
-    category_id,
-    type_id,
+    categoryId,
+    typeId,
     price
   } = req.body
 
@@ -70,17 +70,25 @@ export const createMenu = async (req, res) => {
           image,
           category_id,
           type_id,
-          price
-        ) VALUES (?,?,?,?,?,?,?)
+          price,
+          user_id_created,
+          created_at,
+          user_id_updated,
+          updated_at
+        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
       `,
       [
         name,
         description,
         status,
         image,
-        category_id,
-        type_id,
-        price
+        categoryId,
+        typeId,
+        price,
+        req.decoded.id,
+        new Date(),
+        req.decoded.id,
+        new Date()
       ]
     )
 
@@ -90,15 +98,15 @@ export const createMenu = async (req, res) => {
       description,
       status,
       image,
-      category_id,
-      type_id,
+      categoryId,
+      typeId,
       price
     })
-
   } catch (error) {
+    console.error('Error en createMenu:', error)
     return res.status(500)
       .json({
-        message: error.message
+        message: 'Error al insertar el menu'
       })
   }
 }
@@ -109,8 +117,8 @@ export const updateMenu = async (req, res) => {
     description,
     status,
     image,
-    category_id,
-    type_id,
+    categoryId,
+    typeId,
     price
   } = req.body
 
@@ -122,13 +130,17 @@ export const updateMenu = async (req, res) => {
         WHERE id = ?
       `,
       [
-        name,
-        description,
-        status,
-        image,
-        category_id,
-        type_id,
-        price
+        {
+          name,
+          description,
+          status,
+          image,
+          category_id: categoryId,
+          type_id: typeId,
+          price,
+          user_id_updated: req.decoded.id,
+          updated_at: new Date()
+        }
       ],
       req.params.id
     )
@@ -139,15 +151,15 @@ export const updateMenu = async (req, res) => {
       description,
       status,
       image,
-      category_id,
-      type_id,
+      categoryId,
+      typeId,
       price
     })
-
   } catch (error) {
+    console.error('Error en updateMenu:', error)
     return res.status(500)
       .json({
-        message: error.message
+        message: 'Error al actualizar el menu'
       })
   }
 }
@@ -164,16 +176,14 @@ export const deleteMenu = async (req, res) => {
       ]
     )
 
-    if (result.affectedRows === 0) return res.status(404).json({
-      message: 'Menu not found'
-    })
+    if (result.affectedRows === 0) return res.status(404).json({ message: 'Menu no encontrado' })
 
     res.sendStatus(204)
-    
   } catch (error) {
+    console.error('Error en deleteMenu:', error)
     return res.status(500)
       .json({
-        message: error.message
+        message: 'Error al eliminar el menu'
       })
   }
 }
