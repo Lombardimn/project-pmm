@@ -13,5 +13,11 @@ export const userSchema = z.object({
   password: z
     .string({ required_error: 'La contraseña es requerida' })
     .min(8, { message: 'Debe tener al menos 8 caracteres' })
-    .regex(regexValidator, { message: 'Debe contener al menos 1 minuscula, 1 mayuscula, 1 caracter especial y 1 numero' })
+    .regex(regexValidator, { message: 'Debe contener al menos 1 minuscula, 1 mayuscula, 1 caracter especial y 1 numero' }),
+  rol_id: z.optional(z
+    .string({ required_error: 'El rol es requerido', invalid_type_error: 'Debe ser una cadena de texto' })
+    .max(36, { message: 'Debe tener menos de 36 caracteres' })
+  ),
+  created_at: z.optional(z.date()),
+  updated_at: z.optional(z.date())
 })

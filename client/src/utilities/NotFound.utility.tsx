@@ -1,5 +1,6 @@
-import NotFoundPage from "@/pages/NotFound/NotFoundPage"
-import { Route, Routes } from "react-router-dom"
+import NotFoundPage from '@/pages/NotFound/NotFoundPage'
+import { Route, Routes } from 'react-router-dom'
+import { JSX } from 'react'
 
 interface Props {
   children: JSX.Element[] | JSX.Element

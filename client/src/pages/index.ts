@@ -1,4 +1,5 @@
 export * from './Login/LoginPage';
+export * from './Login/utils/dataLoginForm.util';
 export * from './NotFound/NotFoundPage';
 export * from './Private/Dashboard/DashboardPage';
 export * from './Private/Home/HomePage';

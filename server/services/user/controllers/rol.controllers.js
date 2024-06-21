@@ -5,13 +5,11 @@ export const createRol = async (req, res) => {
 
   try {
     await pool.query(
-      'INSERT INTO Roles (rol, description, user_id_create, created_at, user_id_update, updated_at) VALUES (?,?,?,?,?,?)',
+      'INSERT INTO Roles (rol, description, created_at, updated_at) VALUES (?,?,?,?)',
       [
         rol,
         description,
-        req.decoded.id,
         new Date(),
-        req.decoded.id,
         new Date()
       ]
     )
@@ -72,7 +70,6 @@ export const updateRol = async (req, res) => {
           rol,
           description,
           active,
-          user_id_update: req.decoded.id,
           updated_at: new Date()
         },
         req.params.rol

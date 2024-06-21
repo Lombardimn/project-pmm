@@ -2,24 +2,19 @@
 
 USE users_service;
 
-/* Insertar registros en la tabla Users */
-INSERT INTO Users (id, username, email, password, active, created_at, updated_at) VALUES
-("281af96e-f3dc-401e-b6c1-f0db857522cb", 'admin', 'admin1@example.com', 'password_hash_0', 1, NOW(), NOW()),
-(UUID(), 'admin_user', 'admin@example.com', 'password_hash_1', 1, NOW(), NOW()),
-(UUID(), 'regular_user', 'user@example.com', 'password_hash_2', 1, NOW(), NOW()),
-(UUID(), 'guest_user', 'guest@example.com', 'password_hash_3', 1, NOW(), NOW()),
-(UUID(), 'moderator_user', 'moderator@example.com', 'password_hash_4', 1, NOW(), NOW());
-
 /* Insertar registros en la tabla Roles */
-INSERT INTO Roles (rol, description, active, user_id_create, created_at, user_id_update, updated_at) VALUES
-('Admin', 'Administrator role', 1,"281af96e-f3dc-401e-b6c1-f0db857522cb" ,NOW(),"281af96e-f3dc-401e-b6c1-f0db857522cb", NOW()),
-('User', 'Regular user role', 1,"281af96e-f3dc-401e-b6c1-f0db857522cb" ,NOW(),"281af96e-f3dc-401e-b6c1-f0db857522cb", NOW()),
-('Guest', 'Guest user role', 1,"281af96e-f3dc-401e-b6c1-f0db857522cb" ,NOW(),"281af96e-f3dc-401e-b6c1-f0db857522cb", NOW()),
-('Moderator', 'Moderator role', 1,"281af96e-f3dc-401e-b6c1-f0db857522cb" ,NOW(),"281af96e-f3dc-401e-b6c1-f0db857522cb", NOW());
+INSERT INTO Roles (rol, description, active, created_at, updated_at) VALUES
+('Adminsystem', 'Administrador del Sistema', 1, NOW(), NOW()),
+('Admin', 'Administrador del Negocio', 1, NOW(), NOW()),
+('Sales', 'Vendedores', 1, NOW(), NOW()),
+('Delivery', 'Repartidores', 1, NOW(), NOW()),
+('Clients', 'Clientes', 1, NOW(), NOW());
 
-/* Insertar registros en la tabla Int_user_rol */
-INSERT INTO Int_user_rol (user_id, rol_id) VALUES
-("281af96e-f3dc-401e-b6c1-f0db857522cb", 1);
+/* Insertar registros en la tabla Users */
+INSERT INTO Users (id, username, email, password, active, rol_id, created_at, updated_at) VALUES
+("281af96e-f3dc-401e-b6c1-f0db857522cb", 'cosmefulano2', 'cosme2@example.com', '$2a$10$gmJDmkGmGGkPmK2sbpztk./7md4CaGWWHjbmjHQwShmM1/G1CJyQW', 1, 1, NOW(), NOW());
+
+
 
 USE clients_service;
 
@@ -32,10 +27,10 @@ INSERT INTO Directions (street, number_street, postal_code, floor, departament, 
 
 /* Insertar registros en la tabla Clients */
 INSERT INTO Clients (name, lastname, area_phone, number_phone, status, user_id, created_at, updated_at) VALUES
-('John', 'Doe', 123, 4567890, 1, (SELECT id FROM users_service.Users WHERE username = 'admin_user'), NOW(), NOW()),
-('Jane', 'Doe', 123, 1234567, 1, (SELECT id FROM users_service.Users WHERE username = 'regular_user'), NOW(), NOW()),
-('Jim', 'Beam', 456, 7890123, 1, (SELECT id FROM users_service.Users WHERE username = 'guest_user'), NOW(), NOW()),
-('Jack', 'Daniels', 789, 1237890, 1, (SELECT id FROM users_service.Users WHERE username = 'moderator_user'), NOW(), NOW());
+('John', 'Doe', 123, 4567890, 1, (SELECT id FROM users_service.Users WHERE username = 'cosmefulano2'), NOW(), NOW()),
+('Jane', 'Doe', 123, 1234567, 1, (SELECT id FROM users_service.Users WHERE username = 'cosmefulano2'), NOW(), NOW()),
+('Jim', 'Beam', 456, 7890123, 1, (SELECT id FROM users_service.Users WHERE username = 'cosmefulano2'), NOW(), NOW()),
+('Jack', 'Daniels', 789, 1237890, 1, (SELECT id FROM users_service.Users WHERE username = 'cosmefulano2'), NOW(), NOW());
 
 /* Insertar registros en la tabla Int_clients_directions */
 INSERT INTO Int_clients_directions (client_id, direction_id) VALUES
@@ -68,35 +63,35 @@ INSERT INTO Brands (name, description) VALUES
 
 /* Insertar registros en la tabla Categories */
 INSERT INTO Categories (name, description) VALUES 
-('Electronics', 'Dispositivos y aparatos electrónicos'),
-('Groceries', 'Productos alimenticios y de consumo diario'),
-('Clothing', 'Ropa y accesorios de moda'),
-('Furniture', 'Muebles y accesorios para el hogar'),
-('Sports', 'Equipamiento y accesorios deportivos');
+('Descartables', 'Productos desechables'),
+('Limpieza', 'Productos de limpieza'),
+('Perecederos', 'Alimentos perecederos'),
+('No Perecederos', 'Alimentos no perecederos'),
+('Otros', 'Productos diversos');
 
 /* Insertar registros en la tabla Products */
 INSERT INTO Products (name, description, category_id, type_id, brand_id, image, unit_id, price_unit, min_stock, max_stock) VALUES 
-('Laptop', 'Portátil de alta gama para trabajos exigentes', 1, 1, 4, 'laptop.jpg', 3, 1500.00, 5, 20),
-('Apple Juice', 'Jugo de manzana 100% natural', 2, 2, 1, 'apple_juice.jpg', 2, 3.50, 10, 50),
-('Running Shoes', 'Zapatos deportivos para carreras', 5, 1, 3, 'running_shoes.jpg', 3, 120.00, 15, 100),
-('Office Chair', 'Silla ergonómica para oficina', 4, 1, 5, 'office_chair.jpg', 5, 200.00, 2, 10),
-('T-shirt', 'Camiseta de algodón para uso diario', 3, 1, 2, 'tshirt.jpg', 3, 15.00, 30, 200);
+('Bandeja 105', 'Bandeja de plastico n°105', 1, 1, 4, 'bandeja105.jpg', 3, 1500.00, 5, 20),
+('Perfumina', 'Liquido de limpieza para el piso', 2, 2, 1, 'perfumina.jpg', 2, 3.50, 10, 50),
+('Set de cubiertos', 'Conjunto de cubiertos de plastico tipo tramontina', 5, 1, 3, 'cubiertos.jpg', 3, 120.00, 15, 100),
+('Fideos Tirabuzon', 'Paquete de fideos de 500 gramos', 4, 1, 5, 'office_chair.jpg', 5, 200.00, 2, 10),
+('Lomo', 'Carne de vacuno', 3, 1, 2, 'lomovacuno.jpg', 3, 15.00, 30, 200);
 
 /* Insertar registros en la tabla Menus */
 INSERT INTO Menus (name, description) VALUES 
-('Main Menu', 'Menú principal con acceso a todas las secciones'),
-('Admin Dashboard', 'Panel de administración para gestionar el sistema'),
-('User Profile', 'Sección para la gestión del perfil del usuario'),
-('Reports', 'Acceso a reportes y análisis de datos'),
-('Settings', 'Configuración y ajustes del sistema');
+('Ensalada Mixta', 'Ensalada con queso, tomate y lechuga'),
+('Ñoquis', 'Ñoquis de papa con salsa de boloñesa'),
+('Merluza con Pure', 'Pescado con pure de papas'),
+('Tarta de Jamon y queso', 'Tarta casera con jamón y queso'),
+('Lomitos', 'Sandwich de lomitos con queso y jamón');
 
 /* Insertar registros en la tabla Int_products_menus */
 INSERT INTO Int_products_menus (product_id, menu_id) VALUES 
-(1, 1), -- Laptop en Main Menu
-(2, 1), -- Apple Juice en Main Menu
-(3, 2), -- Running Shoes en Admin Dashboard
-(4, 4), -- Office Chair en Reports
-(5, 5); -- T-shirt en Settings
+(1, 1),
+(2, 1),
+(3, 2),
+(4, 4),
+(5, 5);
 
 
 

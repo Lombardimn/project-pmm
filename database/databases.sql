@@ -5,37 +5,28 @@ DROP DATABASE IF EXISTS users_service;
 CREATE DATABASE users_service;
 USE users_service;
 
-CREATE TABLE Users (
-	id CHAR(36) NOT NULL PRIMARY KEY,
-	username VARCHAR(50) NOT NULL UNIQUE,
-	email VARCHAR(50) NOT NULL UNIQUE,
-	password VARCHAR(61) NOT NULL,
-	img_url VARCHAR(255) NOT NULL DEFAULT('https://res.cloudinary.com/lombardidev/image/upload/v1718419262/baseuser_eq2osl.jpg'),
-	active BOOLEAN NOT NULL DEFAULT 1,
-	created_at TIMESTAMP NOT NULL DEFAULT(NOW()),
-	updated_at TIMESTAMP NOT NULL DEFAULT(NOW())
-);
-
 CREATE TABLE Roles (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	rol VARCHAR(20) NOT NULL UNIQUE,
 	description VARCHAR(50) NOT NULL,
 	active BOOLEAN NOT NULL DEFAULT 1,
-    user_id_create CHAR(36) NOT NULL,
 	created_at TIMESTAMP NOT NULL DEFAULT(NOW()),
-    user_id_update CHAR(36) NOT NULL,
+	updated_at TIMESTAMP NOT NULL DEFAULT(NOW())
+);
+
+CREATE TABLE Users (
+	id CHAR(36) NOT NULL PRIMARY KEY,
+	username VARCHAR(50) NOT NULL UNIQUE,
+	email VARCHAR(50) NOT NULL UNIQUE,
+	password VARCHAR(61) NOT NULL,
+	img_url VARCHAR(255) NOT NULL DEFAULT('https://res.cloudinary.com/lombardidev/image/upload/v1718853742/users/baseusers.jpg'),
+	active BOOLEAN NOT NULL DEFAULT 1,
+	rol_id INT NOT NULL DEFAULT 1,
+	created_at TIMESTAMP NOT NULL DEFAULT(NOW()),
 	updated_at TIMESTAMP NOT NULL DEFAULT(NOW()),
-    FOREIGN KEY (user_id_create) REFERENCES Users(id),
-    FOREIGN KEY (user_id_update) REFERENCES Users(id)
+	FOREIGN KEY (rol_id) REFERENCES Roles(id)
 );
 
-/* TABLE INTERMEDIATE */
-
-CREATE TABLE Int_user_rol (
-	user_id CHAR(36) NOT NULL UNIQUE,
-	rol_id INT NOT NULL,
-	PRIMARY KEY (user_id, rol_id)
-);
 
 
 /* DATABASE CLIENTS */
@@ -140,7 +131,7 @@ CREATE TABLE Menus (
 	name VARCHAR(50) NOT NULL UNIQUE,
 	description VARCHAR(255) NOT NULL,
 	status INT NOT NULL DEFAULT 1,
-    image VARCHAR(255) NOT NULL DEFAULT('https://res.cloudinary.com/lombardidev/image/upload/v1718834160/menu.png'),
+    image VARCHAR(255) NOT NULL DEFAULT('https://res.cloudinary.com/lombardidev/image/upload/v1718853697/menus/menu_general.png'),
     category_id INT NOT NULL DEFAULT 1,
     type_id INT NOT NULL DEFAULT 1,
     price DECIMAL(10,2) NOT NULL DEFAULT 0,
