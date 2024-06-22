@@ -1,6 +1,7 @@
 import express from 'express'
 import morgan from 'morgan'
-import cookieParset from 'cookie-parser'
+import cookieParser from 'cookie-parser'
+import cors from 'cors'
 
 import indexRoutes from './routes/index.routes.js'
 import authRoutes from '../services/user/routes/auth.routes.js'
@@ -13,8 +14,14 @@ import menuRoutes from '../services/product/routes/menu.routes.js'
 const app = express()
 
 app.use(morgan('dev'))
+app.use(cors(
+  {
+    origin: 'http://localhost:5173',
+    credentials: true
+  }
+))
 app.use(express.json())
-app.use(cookieParset())
+app.use(cookieParser())
 
 // ACCESS CONTROL API V1
 

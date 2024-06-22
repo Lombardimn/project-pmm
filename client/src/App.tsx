@@ -7,6 +7,7 @@ import { AuthGuard } from '@/guards'
 import { Provider } from 'react-redux'
 import store from '@/redux/store'
 
+const LandingPage = lazy(() => import('@/pages/Landing/LandingPage'))
 const LoginPage = lazy(() => import('@/pages/Login/LoginPage'))
 const PrivatePage = lazy(() => import('@/pages/Private/PrivatePage'))
 
@@ -17,7 +18,7 @@ function App () {
         <BrowserRouter>
           <RoutesWithNotFound>
             <Route path='/' element={<Navigate to={PrivateRoutes.PRIVATE} />} />
-            <Route path={PublicRoutes.LANDING} element={<h1>Landing</h1>}/>
+            <Route path={PublicRoutes.LANDING} element={<LandingPage />}/>
             <Route path={PublicRoutes.LOGIN} element={<LoginPage />}/>
             <Route element={<AuthGuard privateValidaction={true} />}>
               <Route path={`${PrivateRoutes.PRIVATE}/*`} element={<PrivatePage />}/>

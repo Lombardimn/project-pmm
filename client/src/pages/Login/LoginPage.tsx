@@ -2,11 +2,19 @@ import { ButtonToAction, CallToAction, Copyright, MdiEye, MdiEyeOff } from '@/co
 import { useForm } from 'react-hook-form'
 import React, { useState } from 'react'
 import { FormDataLoginProps } from '@/pages'
+import { LoginAPI } from './services/auth.service'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { createUser, resetUser } from '@/redux/states/user'
+import { Toaster, toast } from 'sonner'
+import axios from 'axios'
 
 const LoginPage: React.FC = () => {
   const [valueUsername, setValueUsername] = useState<string>('')
   const [valuePassword, setValuePassword] = useState<string>('')
   const [showPwd, setShowPwd] = useState<boolean>(true)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormDataLoginProps>()
 
@@ -24,17 +32,53 @@ const LoginPage: React.FC = () => {
     }
   }
 
+  const onSubmit = async (data: FormDataLoginProps) => {
+    try {
+      const response = await LoginAPI(data)
+      console.log(response)
+
+      dispatch(createUser(response.data))
+      toast.success(response.data.message, { duration: 1500 })
+
+      setTimeout(() => {
+        navigate('/private')
+      }, 2000)
+    } catch (error) {
+      console.log('error en login: ', error)
+
+      if (axios.isAxiosError(error)) {
+        if (error.response && error.response.status === 401) {
+          toast.error(error.response.data.message, { duration: 2000 })
+          dispatch(resetUser())
+        }
+      }
+    }
+  }
+
   return (
     <>
+      <Toaster
+        richColors
+        theme="system"
+        toastOptions={{
+          style: {
+            height: '40px',
+            padding: '4px'
+          },
+          className: 'class'
+        }}
+      />
       <main className='w-full h-full flex flex-col mx-auto mt-40'>
         <section className='w-full px-4 flex flex-col justify-center content-center '>
-          <img src='vite.svg' alt='logo de pagina' className='h-16' />
+          <CallToAction href='/landing' className='mx-auto'>
+            <img src='vite.svg' alt='logo de pagina' className='h-16' />
+          </CallToAction>
           <h2 className='text-3xl text-center font-bold mt-2'>Inicio de Sesión</h2>
         </section>
 
         <section className='w-full px-4'>
           <form
-            onSubmit={handleSubmit((data) => console.log(data))}
+            onSubmit={handleSubmit(onSubmit)}
             className='flex flex-col gap-4'
           >
             <div className='relative mt-8'>

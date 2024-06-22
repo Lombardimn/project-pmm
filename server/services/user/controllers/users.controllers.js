@@ -56,7 +56,8 @@ export const createUser = async (req, res) => {
     )
 
     const token = await createAccessToken({
-      id
+      id,
+      username
     })
 
     res.cookie('token', token)

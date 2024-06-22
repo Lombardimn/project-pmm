@@ -7,13 +7,13 @@ export const loginUser = async (req, res) => {
 
   try {
     const [result] = await pool.query(
-      'SELECT id, username, password FROM Users WHERE username = ?',
+      'SELECT id, username, password, rol_id FROM Users WHERE username = ?',
       [username]
     )
 
     // VALIDATE USER
 
-    if (result.length === 0) return res.status(404).json({ message: 'Credenciales inválidas' })
+    if (result.length === 0) return res.status(401).json({ message: 'Credenciales inválidas' })
 
     const validPassword = await bcrypt.compare(password, result[0].password)
 
@@ -21,11 +21,18 @@ export const loginUser = async (req, res) => {
 
     // CREATE TOKEN
     const token = await createAccessToken({
-      id: result[0].id
+      id: result[0].id,
+      username,
+      rol_id: result[0].rol_id
     })
 
     res.cookie('token', token)
-    res.json('Usuario logeado correctamente')
+    res.json({
+      id: result[0].id,
+      username: result[0].username,
+      rol_id: result[0].rol_id,
+      message: 'Sesión iniciada correctamente'
+    })
   } catch (error) {
     console.error('Error en loginUser:', error)
     return res.status(500)
@@ -35,11 +42,14 @@ export const loginUser = async (req, res) => {
   }
 }
 
-export const logoutUser = (req, res) => {
-  res.cookie('token', '', {
+export const logoutUser = async (req, res) => {
+  await res.cookie('token', '', {
     expires: new Date(0)
   })
 
+  res.json({
+    message: 'Cierre de sesión exitoso'
+  })
   return res.sendStatus(200)
 }
 
@@ -50,7 +60,7 @@ export const profileUser = async (req, res) => {
       [req.decoded.id]
     )
 
-    if (result.length === 0) return res.status(404).json({ message: 'User not found' })
+    if (result.length === 0) return res.status(404).json({ message: 'Usuario no encontrado' })
 
     res.json({
       username: result[0].username,
