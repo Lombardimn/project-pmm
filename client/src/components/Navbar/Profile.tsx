@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { ButtonToAction } from '@/components'
-import { Link, useNavigate } from 'react-router-dom'
+import { ButtonToAction, CallToAction } from '@/components'
+import { useNavigate } from 'react-router-dom'
 import { LogoutAPI, ProfileAPI } from '@/pages/Login'
 import { Toaster, toast } from 'sonner'
 import { useDispatch } from 'react-redux'
@@ -45,7 +45,7 @@ export const Profile = () => {
       console.log(response.data)
 
       setTimeout(() => {
-        navigate(`${PrivateRoutes.PROFILE}`, { replace: true })
+        navigate(`/${PrivateRoutes.PRIVATE}/${PrivateRoutes.PROFILE}`, { replace: true })
         return response
       }, 2000)
     } catch (error) {
@@ -83,9 +83,17 @@ export const Profile = () => {
             {open && (
               <div className='flex flex-col rounded-lg bg-slate-50 shadow-lg shadow-neutral-950/40  '>
                 <ul className='text-xl py-2 px-4'>
-                  <li className='py-1 hover:text-blue-500 focus:text-blue-500'><button onClick={Profile}>Perfil</button></li>
-                  <li className='py-1 hover:text-blue-500 focus:text-blue-500'><Link to='/private/customers'>Ajustes</Link></li>
-                  <li className='py-1 hover:text-blue-500 focus:text-blue-500'><button onClick={Logout}>Cerrar Sesión</button></li>
+                  <li className='py-1 hover:text-blue-500 focus:text-blue-500'>
+                    <button onClick={Profile}>Perfil</button>
+                  </li>
+                  <li className='py-1 hover:text-blue-500 focus:text-blue-500'>
+                    <CallToAction to='/private/customers'>
+                      Ajustes
+                    </CallToAction>
+                  </li>
+                  <li className='py-1 hover:text-blue-500 focus:text-blue-500'>
+                    <button onClick={Logout}>Cerrar Sesión</button>
+                  </li>
                 </ul>
               </div>
             )}

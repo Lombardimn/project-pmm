@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux'
 import { createUser, resetUser } from '@/redux/states/user'
 import { Toaster, toast } from 'sonner'
 import axios from 'axios'
-import { PrivateRoutes } from '@/models'
+import { PrivateRoutes, PublicRoutes } from '@/models'
 
 const LoginPage: React.FC = () => {
   const [valueUsername, setValueUsername] = useState<string>('')
@@ -71,7 +71,7 @@ const LoginPage: React.FC = () => {
       />
       <main className='w-full h-full flex flex-col mx-auto mt-40'>
         <section className='w-full px-4 flex flex-col justify-center content-center '>
-          <CallToAction href='/landing' className='mx-auto'>
+          <CallToAction to={`/${PublicRoutes.LANDING}`} className='mx-auto'>
             <img src='vite.svg' alt='logo de pagina' className='h-16' />
           </CallToAction>
           <h2 className='text-3xl text-center font-bold mt-2'>Inicio de Sesión</h2>
@@ -191,11 +191,11 @@ const LoginPage: React.FC = () => {
             </ButtonToAction>
 
             <div className='flex mx-2 mb-3 justify-between'>
-              <CallToAction href='/' className='text-blue-500 text-lg text-left'>
+              <CallToAction to='/' className='text-blue-500 text-lg text-left'>
                 ¿Ha olvidado su contraseña?
               </CallToAction>
 
-              <CallToAction href='/' className='text-blue-500 text-lg text-right'>
+              <CallToAction to='/' className='text-blue-500 text-lg text-right'>
                 ¿No tiene cuenta?
               </CallToAction>
             </div>

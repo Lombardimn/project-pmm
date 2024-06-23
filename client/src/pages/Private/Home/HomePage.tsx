@@ -1,4 +1,4 @@
-import { CardSelector, Copyright, MdiAccountGroup, MdiCashRegister, MdiFood, MdiInvoiceTextEdit, MdiPackageVariant, Navbar } from "@/components"
+import { CardSelector, Copyright, MdiAccountGroup, MdiCashRegister, MdiFood, MdiInvoiceTextEdit, MdiPackageVariant, Navbar } from '@/components'
 
 const HomePage = () => {
   return (
@@ -33,7 +33,7 @@ const HomePage = () => {
             title="Productos">
             <MdiPackageVariant className="scale-[2.0] ml-5 mr-5" />
           </CardSelector>
-          
+
           <CardSelector
             href="/private/invoices"
             className="py-6 font-bold border border-solid border-transparent rounded-xl h-auto w-auto bg-gradient-to-r from-blue-700 from-10% via-sky-700 via-30% bg-cyan-700 to-90% hover:from-blue-500 hover:via-sky-500 hover:to-cyan-500 focus:ring focus:ring-cyan-300"

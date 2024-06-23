@@ -1,7 +1,9 @@
+import React, { JSX } from 'react'
+
 export interface ButtonActionProps {
-  children: React.ReactNode
+  children: JSX.Element[] | JSX.Element | string
   className: string
-  type?: "submit" | "reset" | "button"
+  type?: 'submit' | 'reset' | 'button'
   onClick?: () => void
   onChange?: () => void
   onBlur?: (event: React.FocusEvent<HTMLButtonElement>) => void
@@ -9,8 +11,8 @@ export interface ButtonActionProps {
 }
 
 export interface CallToActionProps {
-  children: React.ReactNode
-  className: string
-  href: string
+  children: JSX.Element[] | JSX.Element | string
+  className?: string
+  to: string
   title?: string
 }
