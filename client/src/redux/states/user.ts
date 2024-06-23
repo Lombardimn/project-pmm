@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { RolStoreInfo, UserStoreInfo } from '@/models'
+import { KEY_SESSION, REDUCER_USER, getPersistUser, setPersistUser } from '@/utilities'
 
 export const EmptyUserState: UserStoreInfo = {
   id: '',
@@ -7,31 +8,23 @@ export const EmptyUserState: UserStoreInfo = {
   rol: {} as RolStoreInfo
 }
 
-export const getPersistUser = (userInfo: UserStoreInfo) => {
-  localStorage.setItem('userSession', JSON.stringify({ ...userInfo }))
-}
-
-export const setPersistUser = () => {
-  localStorage.removeItem('userSession')
-}
-
 export const userSlice = createSlice({
-  name: 'user',
-  initialState: localStorage.getItem('userSession')
-    ? JSON.parse(localStorage.getItem('userSession') as string)
+  name: REDUCER_USER,
+  initialState: localStorage.getItem(KEY_SESSION)
+    ? JSON.parse(localStorage.getItem(KEY_SESSION) as string)
     : EmptyUserState,
   reducers: {
     createUser: (_, action) => {
-      getPersistUser(action.payload)
+      getPersistUser<UserStoreInfo>(KEY_SESSION, action.payload)
       return action.payload
     },
     updateUser: (state, action) => {
       const result = { ...state, ...action.payload }
-      getPersistUser(result)
+      getPersistUser<UserStoreInfo>(KEY_SESSION, result)
       return result
     },
     resetUser: () => {
-      setPersistUser()
+      setPersistUser(KEY_SESSION)
       return EmptyUserState
     }
   }

@@ -6,6 +6,8 @@ import { Toaster, toast } from 'sonner'
 import { useDispatch } from 'react-redux'
 import { resetUser } from '@/redux/states/user'
 import axios from 'axios'
+import { KEY_SESSION, setPersistUser } from '@/utilities'
+import { PrivateRoutes, PublicRoutes } from '@/models'
 
 export const Profile = () => {
   const [open, setOpen] = useState(false)
@@ -21,10 +23,11 @@ export const Profile = () => {
       const response = await LogoutAPI()
 
       if (response.status === 200) {
-        toast.success(response.data.message, { duration: 1500 })
+        toast.success('Sesión cerrada exitosamente', { duration: 1500 })
         setTimeout(() => {
+          setPersistUser(KEY_SESSION)
           dispatch(resetUser())
-          navigate('/landing')
+          navigate(`/${PublicRoutes.LANDING}`, { replace: true })
         }, 2000)
       }
     } catch (error) {
@@ -42,7 +45,7 @@ export const Profile = () => {
       console.log(response.data)
 
       setTimeout(() => {
-        navigate('/private/profile')
+        navigate(`${PrivateRoutes.PROFILE}`, { replace: true })
         return response
       }, 2000)
     } catch (error) {

@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux'
 import { createUser, resetUser } from '@/redux/states/user'
 import { Toaster, toast } from 'sonner'
 import axios from 'axios'
+import { PrivateRoutes } from '@/models'
 
 const LoginPage: React.FC = () => {
   const [valueUsername, setValueUsername] = useState<string>('')
@@ -41,7 +42,7 @@ const LoginPage: React.FC = () => {
       toast.success(response.data.message, { duration: 1500 })
 
       setTimeout(() => {
-        navigate('/private')
+        navigate(`/${PrivateRoutes.PRIVATE}`, { replace: true })
       }, 2000)
     } catch (error) {
       console.log('error en login: ', error)

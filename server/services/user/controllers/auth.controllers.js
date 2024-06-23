@@ -43,14 +43,19 @@ export const loginUser = async (req, res) => {
 }
 
 export const logoutUser = async (req, res) => {
-  await res.cookie('token', '', {
-    expires: new Date(0)
-  })
+  try {
+    res.cookie('token', '', {
+      expires: new Date(0)
+    })
 
-  res.json({
-    message: 'Cierre de sesión exitoso'
-  })
-  return res.sendStatus(200)
+    return res.sendStatus(200)
+  } catch (error) {
+    console.error('Error en logoutUser:', error)
+    return res.status(500)
+      .json({
+        message: 'Error al cerrar sesión'
+      })
+  }
 }
 
 export const profileUser = async (req, res) => {
