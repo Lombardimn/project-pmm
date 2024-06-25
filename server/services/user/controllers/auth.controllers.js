@@ -7,7 +7,7 @@ export const loginUser = async (req, res) => {
 
   try {
     const [result] = await pool.query(
-      'SELECT id, username, password, rol_id FROM Users WHERE username = ?',
+      'SELECT id, username, password, img_url, rol_id FROM Users WHERE username = ?',
       [username]
     )
 
@@ -30,6 +30,7 @@ export const loginUser = async (req, res) => {
     res.json({
       id: result[0].id,
       username: result[0].username,
+      img_url: result[0].img_url,
       rol_id: result[0].rol_id,
       message: 'Sesión iniciada correctamente'
     })
@@ -71,6 +72,7 @@ export const profileUser = async (req, res) => {
       username: result[0].username,
       email: result[0].email,
       active: result[0].active,
+      imgUrl: result[0].img_url,
       createAt: result[0].created_at,
       updatedAt: result[0].updated_at
     })

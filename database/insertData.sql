@@ -15,7 +15,6 @@ INSERT INTO Users (id, username, email, password, active, rol_id, created_at, up
 ("281af96e-f3dc-401e-b6c1-f0db857522cb", 'cosmefulano2', 'cosme2@example.com', '$2a$10$gmJDmkGmGGkPmK2sbpztk./7md4CaGWWHjbmjHQwShmM1/G1CJyQW', 1, 1, NOW(), NOW());
 
 
-
 USE clients_service;
 
 /* Insertar registros en la tabla Directions */

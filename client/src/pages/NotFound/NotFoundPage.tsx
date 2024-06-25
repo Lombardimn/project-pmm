@@ -5,7 +5,7 @@ const NotFoundPage = () => {
     <main className='relative h-screen w-screen flex flex-col bg-slate-200'>
       <section className='flex flex-col items-center '>
         <h1 className='text-center mt-20 font-bold text-3xl'>Página No Encontrada</h1>
-        <CallToAction href='/' className='mt-8 left-0 text-lg text-blue-500 underline underline-offset-4' >
+        <CallToAction to='/' className='mt-8 left-0 text-lg text-blue-500 underline underline-offset-4' >
           🡠 Volver a la pagina principal
         </CallToAction>
         <img

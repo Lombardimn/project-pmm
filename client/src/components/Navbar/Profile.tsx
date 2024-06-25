@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ButtonToAction, CallToAction } from '@/components'
 import { useNavigate } from 'react-router-dom'
 import { LogoutAPI, ProfileAPI } from '@/pages/Login'
@@ -6,13 +6,33 @@ import { Toaster, toast } from 'sonner'
 import { useDispatch } from 'react-redux'
 import { resetUser } from '@/redux/states/user'
 import axios from 'axios'
-import { KEY_SESSION, setPersistUser } from '@/utilities'
+import { IMAGE_USER, KEY_SESSION, setPersistUser } from '@/utilities'
 import { PrivateRoutes, PublicRoutes } from '@/models'
 
 export const Profile = () => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState<boolean>(false)
+  const [imgUrl, setImgUrl] = useState<string>(IMAGE_USER)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    const getuserImg = () => {
+      const dataUserLS = localStorage.getItem(KEY_SESSION)
+      if (dataUserLS) {
+        try {
+          const parsetData = JSON.parse(dataUserLS)
+
+          if (parsetData.img_url && parsetData.img_url.trim() !== '') {
+            setImgUrl(parsetData.img_url)
+          }
+        } catch (error) {
+          console.error('El objeto con la clave proporcionada no existe en el localStorage.')
+        }
+      }
+    }
+
+    getuserImg()
+  }, [imgUrl])
 
   const handleChange = () => {
     setOpen(!open)
@@ -64,8 +84,8 @@ export const Profile = () => {
         theme="system"
         toastOptions={{
           style: {
-            height: '40px',
-            padding: '8px'
+            height: '52px',
+            padding: '4px'
           },
           className: 'class'
         }}
@@ -76,7 +96,7 @@ export const Profile = () => {
             className='h-12 w-12 rounded-full bg-gray-300 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-50'
             onClick={handleChange}
           >
-            <img src='https://i.pravatar.cc/300' className='h-12 w-12 rounded-full'/>
+            <img src={imgUrl} className='h-12 w-12 rounded-full'/>
           </ButtonToAction>
 
           <section className='absolute top-14 -right-2 w-40 text-gray-400'>

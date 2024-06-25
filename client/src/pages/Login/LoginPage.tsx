@@ -36,7 +36,6 @@ const LoginPage: React.FC = () => {
   const onSubmit = async (data: FormDataLoginProps) => {
     try {
       const response = await LoginAPI(data)
-      console.log(response)
 
       dispatch(createUser(response.data))
       toast.success(response.data.message, { duration: 1500 })
@@ -45,8 +44,6 @@ const LoginPage: React.FC = () => {
         navigate(`/${PrivateRoutes.PRIVATE}`, { replace: true })
       }, 2000)
     } catch (error) {
-      console.log('error en login: ', error)
-
       if (axios.isAxiosError(error)) {
         if (error.response && error.response.status === 401) {
           toast.error(error.response.data.message, { duration: 2000 })
@@ -63,7 +60,7 @@ const LoginPage: React.FC = () => {
         theme="system"
         toastOptions={{
           style: {
-            height: '40px',
+            height: '52px',
             padding: '4px'
           },
           className: 'class'
