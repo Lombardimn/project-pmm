@@ -12,13 +12,13 @@ const ManagementSystem = lazy(() => import('@/pages/Private/Management/Managemen
 const PrivatePage = () => {
   return (
     <RoutesWithNotFound>
-      <Route path='/' element={<Navigate to={PrivateRoutes.HOME} />} />
-      <Route path={PrivateRoutes.DASHBOARD} element={<DashboardPage />} />
-      <Route path={PrivateRoutes.PROFILE} element={<ProfliePage />} />
-      <Route path={PrivateRoutes.HOME} element={<HomePage />} />
-      <Route element={<RolGuard />}>
-        <Route path={PrivateRoutes.MANAGEMENT} element={<ManagementSystem />}/>
-      </Route>
+        <Route path='/' element={<Navigate to={PrivateRoutes.HOME} />} />
+        <Route path={PrivateRoutes.DASHBOARD} element={<DashboardPage />} />
+        <Route path={PrivateRoutes.PROFILE} element={<ProfliePage />} />
+        <Route path={PrivateRoutes.HOME} element={<HomePage />} />
+        <Route element={<RolGuard />}>
+          <Route path={`/${PrivateRoutes.HOME}/${PrivateRoutes.BACKOFFICE}`} element={<ManagementSystem />}/>
+        </Route>
     </RoutesWithNotFound>
   )
 }

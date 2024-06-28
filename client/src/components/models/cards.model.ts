@@ -1,6 +1,9 @@
+import { JSX } from 'react'
+
 export interface CardSelectorProps {
-  children: React.ReactNode
+  children: JSX.Element[] | JSX.Element | string
   className: string
-  href: string
+  to: string
   title?: string
+  replace?: boolean
 }

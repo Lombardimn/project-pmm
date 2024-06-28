@@ -16,3 +16,8 @@ export const ProfileAPI = async () => {
   const response = await axios.get(ENDPOINTS.PROFILE)
   return response
 }
+
+export const VerifyTokenAPI = async () => {
+  const response = await axios.get(ENDPOINTS.VERIFY)
+  return response
+}

@@ -20,7 +20,7 @@ function App () {
             <Route path='/' element={<Navigate to={PrivateRoutes.PRIVATE} />} />
             <Route path={PublicRoutes.LANDING} element={<LandingPage />}/>
             <Route path={PublicRoutes.LOGIN} element={<LoginPage />}/>
-            <Route element={<AuthGuard privateValidaction={true} />}>
+            <Route element={<AuthGuard />}>
               <Route path={`${PrivateRoutes.PRIVATE}/*`} element={<PrivatePage />}/>
             </Route>
           </RoutesWithNotFound>

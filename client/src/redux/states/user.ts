@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { RolStoreInfo, UserStoreInfo } from '@/models'
-import { KEY_SESSION, REDUCER_USER, getPersistUser, idRolValidator, setPersistUser } from '@/utilities'
+import { UserStoreInfo } from '@/models'
+import { KEY_SESSION, REDUCER_USER, getPersistUser, setPersistUser } from '@/utilities'
 
 export const EmptyUserState: UserStoreInfo = {
-  id: '',
   username: '',
-  rol: {} as RolStoreInfo
+  index: 0,
+  image: ''
 }
 
 export const userSlice = createSlice({
@@ -15,15 +15,8 @@ export const userSlice = createSlice({
     : EmptyUserState,
   reducers: {
     createUser: (_, action) => {
-      const rolDescription = idRolValidator(action.payload.rol_id)
-      console.log('id rol: ', typeof (action.payload.rol_id))
-      const payloadFinished = {
-        ...action.payload,
-        rol_name: rolDescription
-      }
-      console.log('store user create:', payloadFinished)
-      getPersistUser<UserStoreInfo>(KEY_SESSION, payloadFinished)
-      return payloadFinished
+      const result = getPersistUser<UserStoreInfo>(KEY_SESSION, action.payload)
+      return result
     },
     updateUser: (state, action) => {
       const result = { ...state, ...action.payload }

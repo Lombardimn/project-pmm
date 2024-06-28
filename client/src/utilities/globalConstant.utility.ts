@@ -11,7 +11,7 @@ export const ROLES_LIST: { [ key: number ]: string } = {
   5: 'Clients'
 }
 
-export const KEY_GUARD_ROL = 'Adminsystem'
+export const KEY_GUARD_ROL = 1
 
 // GLOBALS
 export const IMAGE_USER = '/images/baseuser.jpg'

@@ -1,7 +1,5 @@
-import { RolStoreInfo } from './roles.model'
-
 export interface UserStoreInfo {
-  id: string
+  index: number
   username: string
-  rol: RolStoreInfo
+  image: string
 }

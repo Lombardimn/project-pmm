@@ -1,6 +1,8 @@
 import bcrypt from 'bcryptjs'
 import { pool } from '../models/user.model.js'
 import { createAccessToken } from '../../../gateway/libs/jtw.js'
+import jwt from 'jsonwebtoken'
+import { TOKEN_KEY } from '../../../gateway/config.js'
 
 export const loginUser = async (req, res) => {
   const { username, password } = req.body
@@ -26,12 +28,18 @@ export const loginUser = async (req, res) => {
       rol_id: result[0].rol_id
     })
 
-    res.cookie('token', token)
+    res.cookie(
+      'token',
+      token,
+      {
+        sameSite: 'none',
+        secure: true
+      }
+    )
     res.json({
-      id: result[0].id,
       username: result[0].username,
       img_url: result[0].img_url,
-      rol_id: result[0].rol_id,
+      index: result[0].rol_id,
       message: 'Sesión iniciada correctamente'
     })
   } catch (error) {
@@ -83,4 +91,24 @@ export const profileUser = async (req, res) => {
         message: 'Error al consultar el perfil de usuario'
       })
   }
+}
+
+export const verifyToken = async (req, res) => {
+  const { token } = req.cookies
+
+  if (!token) return res.status(401).json({ message: 'No autorizado' })
+
+  jwt.verify(token, TOKEN_KEY, async (error, decoded) => {
+    if (error) return res.status(401).json({ message: 'No autorizado' })
+
+    const userFound = decoded.id
+    console.log('resultado del userFound en verifyToken: ', userFound)
+    if (!userFound) return res.status(401).json({ message: 'No autorizado' })
+
+    return res.status(200)
+      .json({
+        username: decoded.username,
+        rol_id: decoded.rol_id
+      })
+  })
 }

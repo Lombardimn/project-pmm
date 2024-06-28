@@ -1,5 +1,4 @@
 export * from './endpoint.utility'
 export * from './globalConstant.utility'
-export * from './idValidator'
 export * from './localStorage.utility'
 export * from './NotFound.utility'

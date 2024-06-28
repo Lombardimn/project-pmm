@@ -1,4 +1,5 @@
 export const ENDPOINTS = {
+  VERIFY: '/verify',
   LOGIN: '/login',
   LOGOUT: '/logout',
   PROFILE: '/profile',

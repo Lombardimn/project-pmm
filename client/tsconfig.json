@@ -27,6 +27,7 @@
       "@/guards/*": ["src/guards/*"],
       "@/utilities/*": ["src/utilities/*"],
       "@/hooks/*": ["src/hooks/*"],
+      "@/context/*": ["src/Page/Private/context/*"],
 
     },
 

@@ -2,9 +2,14 @@ import { Router } from 'express'
 import { validateSchema } from '../../../gateway/middlewares/schema.middleware.js'
 import { authRequired } from '../../../gateway/middlewares/validate.middleware.js'
 import { loginSchema } from '../validators/auth.schema.js'
-import { loginUser, logoutUser, profileUser } from '../controllers/auth.controllers.js'
+import { loginUser, logoutUser, profileUser, verifyToken } from '../controllers/auth.controllers.js'
 
 const router = Router()
+
+router.get(
+  '/verify',
+  verifyToken
+)
 
 router.get(
   '/profile',

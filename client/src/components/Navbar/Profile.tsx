@@ -62,7 +62,6 @@ export const Profile = () => {
   const Profile = async () => {
     try {
       const response = await ProfileAPI()
-      console.log(response.data)
 
       setTimeout(() => {
         navigate(`/${PrivateRoutes.PRIVATE}/${PrivateRoutes.PROFILE}`, { replace: true })
@@ -96,7 +95,7 @@ export const Profile = () => {
             className='h-12 w-12 rounded-full bg-gray-300 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-50'
             onClick={handleChange}
           >
-            <img src={imgUrl} className='h-12 w-12 rounded-full'/>
+            <img src={imgUrl} className='h-12 w-12 rounded-full object-contain'/>
           </ButtonToAction>
 
           <section className='absolute top-14 -right-2 w-40 text-gray-400'>
