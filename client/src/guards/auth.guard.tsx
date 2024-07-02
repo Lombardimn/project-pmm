@@ -20,9 +20,20 @@ export const AuthGuard = () => {
 
   useEffect(() => {
     const checkToken = async () => {
-      const result = await TokenGuard()
       try {
-        if (!result.auth && !result.load) {
+        const result = await TokenGuard()
+
+        if (result.auth && result.load) {
+          setPrivateValidaction(true)
+        } else if (!result.auth && result.load) {
+          toast.error('Usuario no autenticado, redireccionando...', { duration: 1500 })
+
+          setTimeout(() => {
+            navigate(`/${PublicRoutes.LANDING}`, { replace: true })
+          }, 2000)
+
+          setPrivateValidaction(false)
+        } else {
           const response = await LogoutAPI()
           if (response.status === 200) {
             toast.error('Usuario No autorizado, Token Invalido', { duration: 1500 })
@@ -34,24 +45,15 @@ export const AuthGuard = () => {
 
             setPrivateValidaction(false)
           }
-        } else if (!result.auth && result.load) {
-          toast.error('Usuario no autenticado, redireccionando...', { duration: 1500 })
-
-          setTimeout(() => {
-            navigate(`/${PublicRoutes.LOGIN}`, { replace: true })
-          }, 2000)
-
-          setPrivateValidaction(false)
-        } else {
-          setPrivateValidaction(true)
-
-          setTimeout(() => {}, 1000)
         }
       } catch (error) {
         if (axios.isAxiosError(error)) {
           if (error.response && error.response.status === 401) {
+            setPrivateValidaction(false)
             dispatch(resetUser())
             navigate(PublicRoutes.LANDING)
+          } else {
+            console.error('Unexpected error: ', error)
           }
         }
       }

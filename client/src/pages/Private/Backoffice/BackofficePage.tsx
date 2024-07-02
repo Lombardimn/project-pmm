@@ -1,4 +1,4 @@
-const ManagementSystem = () => {
+const Backoffice = () => {
   return (
     <div>
       <h1>ManagementSystem</h1>
@@ -7,4 +7,4 @@ const ManagementSystem = () => {
   )
 }
 
-export default ManagementSystem
+export default Backoffice

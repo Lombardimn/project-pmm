@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { UserStoreInfo } from '@/models'
 import { KEY_SESSION, REDUCER_USER, getPersistUser, setPersistUser } from '@/utilities'
+import Cookies from 'js-cookie'
 
 export const EmptyUserState: UserStoreInfo = {
-  username: '',
+  username: 'unknown',
   index: 0,
-  image: ''
+  image: 'https://res.cloudinary.com/lombardidev/image/upload/v1718853742/users/baseusers.jpg'
 }
 
 export const userSlice = createSlice({
@@ -25,6 +26,18 @@ export const userSlice = createSlice({
     },
     resetUser: () => {
       setPersistUser(KEY_SESSION)
+
+      // Limpieza de caches
+      if ('caches' in window) {
+        caches.keys().then((names) => {
+          names.forEach((name) => {
+            caches.delete(name)
+          })
+        })
+      }
+
+      // Limpieza de cookies
+      Cookies.remove('token')
       return EmptyUserState
     }
   }

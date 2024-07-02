@@ -5,7 +5,7 @@ import { FormDataLoginProps } from '@/pages'
 import { LoginAPI } from './services/auth.service'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { createUser, resetUser } from '@/redux/states/user'
+import { createUser, resetUser, updateUser } from '@/redux/states/user'
 import { Toaster, toast } from 'sonner'
 import axios from 'axios'
 import { PrivateRoutes, PublicRoutes } from '@/models'
@@ -38,6 +38,7 @@ const LoginPage: React.FC = () => {
       const response = await LoginAPI(data)
 
       dispatch(createUser(response.data))
+      dispatch(updateUser(response.data))
       toast.success(response.data.message, { duration: 1500 })
 
       setTimeout(() => {
@@ -66,10 +67,13 @@ const LoginPage: React.FC = () => {
           className: 'class'
         }}
       />
-      <main className='w-full h-full flex flex-col mx-auto mt-40'>
-        <section className='w-full px-4 flex flex-col justify-center content-center '>
+      <main className='w-full flex flex-col mx-auto pt-20 text-primary-color bg-background-primary'>
+        <section className='w-full px-4 flex flex-col justify-center content-center'>
           <CallToAction to={`/${PublicRoutes.LANDING}`} className='mx-auto'>
-            <img src='vite.svg' alt='logo de pagina' className='h-16' />
+            <img
+              src='/images/logo-light.png'
+              alt='Logo de empresa La cocina de moni, el gusto de comer en casa'
+              className='' />
           </CallToAction>
           <h2 className='text-3xl text-center font-bold mt-2'>Inicio de Sesión</h2>
         </section>
@@ -87,7 +91,7 @@ const LoginPage: React.FC = () => {
                     absolute left-4 text-xl text-gray-500 transition-all duration-200 ease-in-out transform
                     ${
                       valueUsername
-                        ? '-top-4 z-10 bg-white px-1 after:content-["*"] after:ml-0.5 after:text-red-500'
+                        ? '-top-4 z-10 bg-background-primary px-1 after:content-["*"] after:ml-0.5 after:text-red-500'
                         : 'top-7 -translate-y-1/2'
                     } 
                     peer-focus:top-0 peer-focus:text-xl peer-focus:text-blue-500
@@ -129,7 +133,7 @@ const LoginPage: React.FC = () => {
                     absolute left-4 text-xl text-gray-500 transition-all duration-200 ease-in-out transform
                     ${
                       valuePassword
-                        ? '-top-4 z-10 bg-white px-1 after:content-["*"] after:ml-0.5 after:text-red-500'
+                        ? '-top-4 z-10 bg-background-primary px-1 after:content-["*"] after:ml-0.5 after:text-red-500'
                         : 'top-1/2 -translate-y-1/2'
                     } 
                     peer-focus:top-0 peer-focus:text-xl peer-focus:text-blue-500
@@ -187,7 +191,7 @@ const LoginPage: React.FC = () => {
               Iniciar Sesion
             </ButtonToAction>
 
-            <div className='flex mx-2 mb-3 justify-between'>
+            <div className='flex mx-2 justify-between'>
               <CallToAction to='/' className='text-blue-500 text-lg text-left'>
                 ¿Ha olvidado su contraseña?
               </CallToAction>
@@ -199,7 +203,7 @@ const LoginPage: React.FC = () => {
           </form>
         </section>
       </main>
-      <footer>
+      <footer className='bg-background-primary'>
         <Copyright />
       </footer>
     </>

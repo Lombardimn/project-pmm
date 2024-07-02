@@ -1,6 +1,6 @@
+export * from './Backoffice/BackofficePage'
 export * from './Dashboard/DashboardPage'
 export * from './Home/HomePage'
-export * from './Management/ManagementSystem'
 export * from './PrivatePage'
 export * from './Profile/components/DropZone'
 export * from './Profile/ProfilePage'
